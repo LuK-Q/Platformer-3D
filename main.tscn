@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdmm021baj746"]
+
+[ext_resource type="PackedScene" uid="uid://cerfbd1wi12ct" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://look_at.gd" id="2_0xm2m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2yge"]
+size = Vector3(50, 1, 50)
+
+[node name="Main" type="Node"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_0xm2m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_h2yge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.7071068, -0.11061584, -0.6984012, 0.7071068, 0.11061584, 0.6984012, 0, -0.98768836, 0.15643443, 0, 20, 0)
+light_color = Color(0.9208052, 0.72521806, 0.41911855, 1)
+light_energy = 0.67
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1)
+
+[node name="Node3D" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -1)
+
+[node name="Marker3D2" type="Marker3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Marker3D2"]
+transform = Transform3D(1, 0, 0, 0, 0.77803487, 0.6282211, 0, -0.6282211, 0.77803487, 0, 8.077144, 6.776581)
+script = ExtResource("2_0xm2m")
