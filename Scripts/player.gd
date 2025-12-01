@@ -1,32 +1,25 @@
 extends CharacterBody3D
-# How fast the player moves in meters per second.
+
 @export var speed = 14
-# The downward acceleration while in the air, in meters per second squared.
-@export var fall_acceleration = 75
-# Vertical impulse applied to the character upon jumping in meters per second.
+@export var fall_acceleration = 50
 @export var jump_impulse = 20
-# Vertical impulse applied to the character upon bouncing over a mob
-# in meters per second.
 @export var bounce_impulse = 16
 @export var turn_speed = 10.0
 @export var move_smoothing = 8.0
-
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
-
 var movement_direction := Vector3.ZERO
-
 var target_velocity = Vector3.ZERO
-
 
 func _physics_process(delta):
 
 	# --- MOVEMENT INPUT (WASD + LEFT STICK) ---
-	var input_dir = Vector3(
-		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
-		0,
-		Input.get_action_strength("move_back") - Input.get_action_strength("move_forward")
-	)
+	var input_dir_2d = Input.get_vector(
+	"move_left", "move_right",
+	"move_forward", "move_back"
+	)	
 
+	# Convert 2D input into 3D movement
+	var input_dir = Vector3(input_dir_2d.x, 0, input_dir_2d.y)
 	# Smooth acceleration (kills keyboard snapping)
 	movement_direction = movement_direction.lerp(input_dir, delta * move_smoothing)
 	# Kill tiny drifting input
@@ -53,7 +46,7 @@ func _physics_process(delta):
 	)
 
 	# MOUSE TURNING (only if stick NOT used)
-	
+
 	else:
 		var mouse_pos = get_viewport().get_mouse_position()
 		var from = camera.project_ray_origin(mouse_pos)
@@ -94,17 +87,6 @@ func _physics_process(delta):
 	# Jumping.
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		target_velocity.y = jump_impulse
-
-	# Iterate through all collisions that occurred this frame
-	# in C this would be for(int i = 0; i < collisions.Count; i++)
-	for index in range(get_slide_collision_count()):
-		# We get one of the collisions with the player
-		var collision = get_slide_collision(index)
-
-		# If the collision is with ground
-		if collision.get_collider() == null:
-			continue
-
 
 	# Moving the Character
 	velocity = target_velocity
