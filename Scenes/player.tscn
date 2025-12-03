@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cerfbd1wi12ct"]
 
 [ext_resource type="PackedScene" uid="uid://cpj0u7fq8lg5b" path="res://Blender models/test_cube.blend" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://dod78byraexkg" path="res://Scripts/player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://dod78byraexkg" path="res://Scripts/Player3D.gd" id="1_onrkg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4flbx"]
 size = Vector3(2.027588, 2.0067139, 2.010315)
