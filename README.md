@@ -7,27 +7,28 @@
 **Platforma docelowa:** PC (Windows / Linux)
 
 **Inspiracje:**
-- Mirror’s Edge – płynny parkour / poruszanie się
-- Little Nightmares – klimat, skalowanie świata
+- Mirror’s Edge – płynny parkour / momentum based movement system / prosty stylizowany wygląd
+- Little Nightmares – klimat
 
 ---
 
 ## Wizja gry
 
-Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w celu odnalezienia drogi wyjścia z zamkniętej, zdegradowanej przestrzeni miejskiej. Miejsca sprawiają wrażenie zatrzymanych w czasie, spustoszałych i nienaturalnie pustych. Otoczenie opowiada historię.
+Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w celu odnalezienia drogi wyjścia z zamkniętej, zdegradowanej przestrzeni miejskiej. Miejsca sprawiają wrażenie zatrzymanych w czasie, spustoszałych i nienaturalnie pustych. Otoczenie opowiada historię. Gra mocno opiera się na poruszaniu z momentum, gracz jest nagradzany za jego utrzymanie.
 
 ### Rozgrywka polega na:
 
 - przemieszczaniu się po dachach i konstrukcjach budynków (Mirror’s Edge)
 - eksploracji wnętrz (korytarze, klatki schodowe, open space, piwnice, parkingi)
 - unikaniu nieznanych jednostek (NPC)
-- wykorzystywaniu światła jako głównej mechaniki przetrwania
+- gracz jest otoczony przez mgłę ograniczającą widoczność
+- poruszanie wykorzystuje momentum -> wraz z momentum wzrasta jasność emitowana z gracza która rozprasza mgłę wokół niego
 
 ### Narracja poprzez:
 
 - rozmieszczenie obiektów
 - architekturę
-- światło i cień
+- światło i mgłę
 - układ środowiska
 
 ---
@@ -49,14 +50,22 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 - saturation: 0.6 – 0.7  
 - contrast: 1.2 – 1.4  
 - exposure: obniżone  
-- dodany fog (niebieski?)  
-- rozmyte cienie  
+- dynamiczny fog   
 
 ---
 
 ## Paleta kolorów
 
 ### Podstawowa
+
+**| Paleta z Mirror's Edge|**
+|------|------|
+| Off-white | #F2F2EE |
+| Red | #E53935 |
+| Orange | #FB8C00 |
+| Cool gray | #8A93A6 |
+| Black | #1E1E1E |
+
 
 | Element | Kolor | HEX | Zastosowanie |
 |------|------|------|------|
@@ -90,7 +99,7 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 
 - światło przyciąga wrogów (im jaśniej = łatwiejsze wykrycie)
 - NPC reagują na światło
-- gracz kontroluje emisyjność światła (mechanika kaptura)
+- gracz kontroluje emisyjność światła (mechanika momentum)
 - światło / bateria aktywuje elementy świata:
   - fotokomórki
   - latarnie
@@ -101,7 +110,7 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 
 ---
 
-## Przeciwnicy (NPC)
+## Przeciwnicy (NPC) - opcjonalne tymczasowo
 
 **Typy:**
 - patrol
@@ -110,7 +119,7 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 
 **Cechy:**
 - reagują na światło
-- brak stałej formy fizycznej
+- humanoidalna sylwetka (Alan's Wake?)
 - zależnie od typu inne zachowanie / prędkość
 
 **Walka:**
@@ -122,13 +131,11 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 ## Postać gracza
 
 - brak dialogów
-- non-human
 - wyraźny kolor
 
 **Cel:**
 - ucieczka
 - odnalezienie wyjścia (emergency exit?)
-- zdobycie informacji o świecie?  
 
 ---
 
@@ -137,8 +144,7 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 - drzwi, windy – przyciski
 - element blokujący drogę – popychanie
 - użycie światła do rozproszenia ciemności / mgły
-- checkpoint – stacja ładująca?
-- zagadki logiczne wymagające użycia własnego światła
+- checkpoint
 
 ---
 
@@ -236,18 +242,13 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 - idle
 - bieg
 - skok
-- lądowanie
 - wspinaczka
-- ewentualny poślizg / spadanie
+- ewentualny poślizg / spadanie / lądowanie
 
 **Synchronizacja:** animacja + kod
 
 **Opcjonalnie:**
 - lekkie animacje środowiska
-
-**Rezultat:**
-- komplet animacji
-- poprawne przejścia w Godot (AnimationTree)
 
 ---
 
@@ -267,7 +268,7 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 
 - światła kierunkowe + punktowe
 - cienie
-- mgła / volumetric
+- mgła | volumetric
 - kolorystyka:
   - zimne barwy
   - kontrasty (np. jaśniejsza postać)
@@ -281,7 +282,7 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 - skok
 - lądowanie
 - ambient
-- prosta muzyka (tło)
+- prosta muzyka (tło) |#| Opcjonalne
 
 ---
 
