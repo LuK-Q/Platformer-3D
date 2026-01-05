@@ -58,8 +58,8 @@ Gracz przemierza opuszczone dachy, wnętrza biurowców i strefy przemysłowe w c
 
 ### Podstawowa
 
-**| Paleta z Mirror's Edge|**
-|------|------|
+| Paleta z Mirror's Edge | HEX |
+|----|----|
 | Off-white | #F2F2EE |
 | Red | #E53935 |
 | Orange | #FB8C00 |
