@@ -1,0 +1,116 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://cgg2pjpsbb3ln"
+path="res://.godot/imported/testing area.blend-f544adb60e61db75d760b0c6d6bd2454.scn"
+
+[deps]
+
+source_file="res://Blender models/testing area.blend"
+dest_files=["res://.godot/imported/testing area.blend-f544adb60e61db75d760b0c6d6bd2454.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/root_script=null
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
+_subresources={
+"nodes": {
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Architecture_12/floor4_1/������������������_427_0/Object_7": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Architecture_12/wall_3/������������������_426_2/Object_10": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Architecture_12/wall_exterior_6/������������������_3_4/Object_13": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Items_46/other_45/concrete_36/������������������_395_13/Object_27": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Items_46/other_45/concrete_36/������������������_396_14/Object_29": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Items_46/other_45/concrete_36/������������������_399_15/Object_31": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Items_46/other_45/concrete_36/������������������_405_18/Object_37": {
+"physics/layer": 0,
+"physics/mask": 0
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Items_46/other_45/concrete_36/������������������_424_35/Object_71": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Items_46/other_45/handrail_41/������������������_425_40/Object_91": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Items_46/other_45/white_44/������������������_402_42/Object_94": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Sketchfab_model/root/GLTF_SceneRootNode/ClassRoom+Hall+_47/Items_46/other_45/white_44/������������������_403_43/Object_96": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+}
+}
+}
+blender/nodes/visible=0
+blender/nodes/active_collection_only=false
+blender/nodes/punctual_lights=true
+blender/nodes/cameras=true
+blender/nodes/custom_properties=true
+blender/nodes/modifiers=1
+blender/meshes/colors=false
+blender/meshes/uvs=true
+blender/meshes/normals=true
+blender/meshes/export_geometry_nodes_instances=false
+blender/meshes/tangents=true
+blender/meshes/skins=2
+blender/meshes/export_bones_deforming_mesh_only=false
+blender/materials/unpack_enabled=true
+blender/materials/export_materials=1
+blender/animation/limit_playback=true
+blender/animation/always_sample=true
+blender/animation/group_tracks=true
+gltf/naming_version=2

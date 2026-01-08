@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cffia5700d1wx"]
+
+[ext_resource type="PackedScene" uid="uid://cgg2pjpsbb3ln" path="res://Blender models/testing area.blend" id="1_q4fj6"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="testing area" parent="." instance=ExtResource("1_q4fj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.800879, 0)

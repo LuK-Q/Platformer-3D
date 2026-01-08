@@ -1,88 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cerfbd1wi12ct"]
+[gd_scene load_steps=4 format=3 uid="uid://cerfbd1wi12ct"]
 
-[ext_resource type="PackedScene" uid="uid://cpj0u7fq8lg5b" path="res://Blender models/test_cube.blend" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://dod78byraexkg" path="res://Scripts/Player3D.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://brls4bcrjr2fa" path="res://Scenes/playerModel.tscn" id="2_cvnsp"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4flbx"]
-size = Vector3(2.027588, 2.0067139, 2.010315)
-
-[sub_resource type="Animation" id="Animation_onrkg"]
-resource_name = "Flip"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/test_cube:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.7853982, 0, 0), Vector3(-1.5707964, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_hqtel"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_i3pqv"]
-resource_name = "reset"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_i3pqv"]
-_data = {
-&"Flip": SubResource("Animation_onrkg"),
-&"RESET": SubResource("Animation_hqtel"),
-&"reset": SubResource("Animation_i3pqv")
-}
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
+height = 1.7633057
 
 [node name="Player" type="CharacterBody3D"]
 collision_mask = 6
@@ -90,15 +12,9 @@ script = ExtResource("1_onrkg")
 
 [node name="Pivot" type="Node3D" parent="."]
 
-[node name="test_cube" parent="Pivot" instance=ExtResource("1_4flbx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8948588, 0)
+[node name="playerModel" parent="Pivot" instance=ExtResource("2_cvnsp")]
+transform = Transform3D(-2, 0, -1.7484555e-07, 0, 2, 0, 1.7484555e-07, 0, -2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.006225586, 2.8982158, -0.00015258789)
-shape = SubResource("BoxShape3D_4flbx")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_i3pqv")
-}
-autoplay = "Flip"
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.7455282, 0)
+shape = SubResource("CapsuleShape3D_cvnsp")

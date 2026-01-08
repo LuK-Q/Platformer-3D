@@ -1,69 +1,42 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdmm021baj746"]
+[gd_scene load_steps=6 format=3 uid="uid://cdmm021baj746"]
 
 [ext_resource type="Script" uid="uid://db1eqq403h8ij" path="res://Scripts/CameraDirector.gd" id="1_8gbba"]
 [ext_resource type="PackedScene" uid="uid://cerfbd1wi12ct" path="res://Scenes/player.tscn" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://Scripts/camera_look_at_player.gd" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://0jskvd87xvd8" path="res://Scripts/click_to_focus_camera.gd" id="3_8gbba"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
-size = Vector3(50, 1, 50)
-
-[sub_resource type="BoxMesh" id="BoxMesh_h2yge"]
-size = Vector3(50, 1, 50)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
-albedo_color = Color(0.5646384, 0.27471095, 0.3178029, 1)
-metallic = 0.56
+[ext_resource type="PackedScene" uid="uid://cffia5700d1wx" path="res://Scenes/testarea.tscn" id="5_kry3j"]
 
 [node name="Main" type="Node"]
-
-[node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_0xm2m")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("BoxMesh_h2yge")
-
-[node name="Ground" type="StaticBody3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 25, 8.320506, -21.67949)
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/Ground"]
-shape = SubResource("BoxShape3D_0xm2m")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground/Ground"]
-mesh = SubResource("BoxMesh_h2yge")
-surface_material_override/0 = SubResource("StandardMaterial3D_0xm2m")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.7071068, -0.11061584, -0.6984012, 0.7071068, 0.11061584, 0.6984012, 0, -0.98768836, 0.15643443, 0, 20, 0)
-light_color = Color(0.9208052, 0.72521806, 0.41911855, 1)
-light_energy = 0.67
-shadow_enabled = true
-
-[node name="Player" parent="." instance=ExtResource("1_bo1nx")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1)
 
 [node name="CameraPivot" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 0.7780348, 0.628221, 0, -0.628221, 0.7780348, 0, -0.1946621, 0.32989502)
+transform = Transform3D(1, 0, 0, 0, 0.7780348, 0.628221, 0, -0.628221, 0.7780348, 0, 6.128, 2.801)
 fov = 64.6
 script = ExtResource("2_8gbba")
 target = NodePath("../../Player")
-offset = Vector3(0, 20.135, 19.52)
+offset = Vector3(0, 6.455, 5.975)
 
 [node name="CameraDirector" type="Node3D" parent="." node_paths=PackedStringArray("camera", "default_target")]
 script = ExtResource("1_8gbba")
 camera = NodePath("../CameraPivot/Camera3D")
 default_target = NodePath("../Player")
+default_offset = Vector3(0, 10, 6)
 
 [node name="ClickFunction" type="Node3D" parent="CameraDirector"]
 script = ExtResource("3_8gbba")
+
+[node name="TestAreaAsset" parent="." instance=ExtResource("5_kry3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_bo1nx")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 1)
+acceleration = 24.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.7071068, -0.11061584, -0.69840115, 0.7071068, 0.11061584, 0.69840115, 0, -0.98768836, 0.15643442, 0, 20, 0)
+light_color = Color(0.9208052, 0.72521806, 0.41911855, 1)
+light_energy = 0.67
+shadow_enabled = true
