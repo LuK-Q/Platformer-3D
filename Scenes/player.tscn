@@ -1,20 +1,68 @@
-[gd_scene load_steps=4 format=3 uid="uid://cerfbd1wi12ct"]
+[gd_scene format=3 uid="uid://cerfbd1wi12ct"]
 
-[ext_resource type="Script" uid="uid://dod78byraexkg" path="res://Scripts/Player3D.gd" id="1_onrkg"]
-[ext_resource type="PackedScene" uid="uid://brls4bcrjr2fa" path="res://Scenes/playerModel.tscn" id="2_cvnsp"]
+[ext_resource type="Script" uid="uid://dod78byraexkg" path="res://Scripts/PlayerMovement.gd" id="1_v0iea"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_v0iea"]
+radius = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_v0iea"]
+size = Vector3(0.1, 0.1, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
-height = 1.7633057
+radius = 0.15
+height = 0.3999756
 
-[node name="Player" type="CharacterBody3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_v0iea"]
+radius = 0.14133148
+height = 0.28266296
+
+[node name="Player" type="CharacterBody3D" unique_id=1316737884]
 collision_mask = 6
-script = ExtResource("1_onrkg")
+script = ExtResource("1_v0iea")
 
-[node name="Pivot" type="Node3D" parent="."]
+[node name="Pivot" type="Node3D" parent="." unique_id=1141255174]
 
-[node name="playerModel" parent="Pivot" instance=ExtResource("2_cvnsp")]
-transform = Transform3D(-2, 0, -1.7484555e-07, 0, 2, 0, 1.7484555e-07, 0, -2, 0, 0, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=434475170]
+mesh = SubResource("CapsuleMesh_v0iea")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.7455282, 0)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pivot" unique_id=1009572948]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.918)
+mesh = SubResource("BoxMesh_v0iea")
+
+[node name="CeilingRay" type="RayCast3D" parent="Pivot" unique_id=551420173]
+target_position = Vector3(0, 1.5, 0)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="VaultRay" type="RayCast3D" parent="Pivot" unique_id=492417792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.598)
+target_position = Vector3(0, 0, 1)
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 0, 0.78039217, 1)
+
+[node name="WallRayRight" type="RayCast3D" parent="Pivot" unique_id=1332420783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.098)
+target_position = Vector3(-1, 0, 0)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="WallRayLeft" type="RayCast3D" parent="Pivot" unique_id=1778430624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.027, 0, 0.098)
+target_position = Vector3(1, 0, 0)
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="LowerCollision" type="CollisionShape3D" parent="." unique_id=1553374481]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.5740478, 0)
 shape = SubResource("CapsuleShape3D_cvnsp")
+debug_color = Color(0.7647059, 0, 0.34117648, 1)
+
+[node name="UpperCollision" type="CollisionShape3D" parent="." unique_id=310154561]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0.42194217, 0)
+shape = SubResource("CapsuleShape3D_v0iea")
+debug_color = Color(0.7647059, 0, 0.34117648, 1)
