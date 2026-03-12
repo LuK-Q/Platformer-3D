@@ -3,7 +3,7 @@ class_name CameraDirector
 
 @export var camera: Camera3D
 @export var default_target: Node3D
-@export var default_offset: Vector3 = Vector3(0, 20, 16)
+@export var default_offset: Vector3 = Vector3(0, 3, 3)
 
 var _stack: Array = []
 var _timer: SceneTreeTimer

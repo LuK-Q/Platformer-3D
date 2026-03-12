@@ -1,22 +1,19 @@
 extends CharacterBody3D
 
 @export_group("Movement")
-@export var walk_speed := 3.5
-@export var run_speed := 7.0
-@export var acceleration := 15.0
-@export var friction := 25.0
-
-# Zmienna sterująca, którą łatwo włączyć/wyłączyć
-@export var use_momentum := false
+@export var base_speed := 1.0
+@export var sprint_speed := 3.0
+@export var acceleration := 10.0
+@export var friction := 35.0
 @export var air_control := 0.05
 
 @export_group("Jump & Gravity")
-@export var jump_velocity := 6.0
+@export var jump_velocity := 10.0
 @export var gravity_multiplier := 3.5
 @export var fall_gravity_multiplier := 5.0
 
 @export_group("Momentum System")
-@export var max_momentum_speed := 9.0
+@export var max_momentum_speed := 18.0
 @export var momentum_gain_rate := 1.5
 
 @export_group("Sliding & Crouching")
@@ -41,7 +38,6 @@ var momentum := 0.0
 var current_target_speed := 0.0
 var is_sprinting := false
 var is_sliding := false
-var is_crouch_walking := false
 var is_crouching := false
 var slide_timer := 0.0
 
@@ -102,30 +98,27 @@ func _physics_process(delta: float) -> void:
 func update_animations() -> void:
 	var h_speed = Vector2(velocity.x, velocity.z).length()
 	
-	# Dla BlendSpace: 0.0 to Idle, 0.5 to Walk, 1.0 to Run
-	var walk_blend = 0.0
-	if h_speed > 0.1:
-		if h_speed <= walk_speed:
-			walk_blend = remap(h_speed, 0.1, walk_speed, 0.1, 0.5)
+	if not is_on_floor():
+		#state_machine.travel("falling")
+		return
+
+	if is_sliding:
+		state_machine.travel("slide")
+		return
+
+	if is_crouching:
+		if h_speed > 0.2:
+			state_machine.travel("Walking crouched")
 		else:
-			walk_blend = remap(h_speed, walk_speed, run_speed, 0.5, 1.0)
-			
-	anim_tree.set("parameters/Grounded/Ground movement/blend_position", walk_blend)
-	
-	# 2. Aktualizacja warunków (Conditions) dla AnimationTree
+			state_machine.travel("idle_crouched")
+		return
 
-	anim_tree.set("parameters/conditions/is_on_floor", is_on_floor())
-	anim_tree.set("parameters/conditions/is_airborne", not is_on_floor())
-	anim_tree.set("parameters/conditions/is_crouching", is_crouching)
-	anim_tree.set("parameters/conditions/is_not_crouching", not is_crouching)
-	anim_tree.set("parameters/conditions/is_sliding", is_sliding)
-	anim_tree.set("parameters/conditions/is_crouch_walking", is_crouch_walking)
-
-	# 3. Trigger skoku (jednorazowy impuls)
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		anim_tree.set("parameters/conditions/is_jumping", true)
+	if h_speed < 0.2:
+		state_machine.travel("idle_2")
+	elif h_speed < (base_speed + 1.0):
+		state_machine.travel("walking")
 	else:
-		anim_tree.set("parameters/conditions/is_jumping", false)
+		state_machine.travel("running")
 
 # --- RESZTA FUNKCJI LOGICZNYCH (momentum, start_slide itp.) ---
 # Zachowaj funkcje handle_momentum, start_slide, stop_slide, handle_slide, 
@@ -153,26 +146,18 @@ func stop_crouch() -> void:
 	is_crouching = false
 	upper_collision.disabled = false
 
-func get_target_speed() -> float:
-	var is_sprinting = Input.is_action_pressed("sprint")
-	if is_sprinting:
-		return run_speed
-	else:
-		return walk_speed
-
 func handle_normal_movement(delta: float, direction: Vector3) -> void:
-	var target_speed = get_target_speed()
-	
+	handle_momentum(delta, direction)
 	if direction.length() > 0:
-		velocity.x = move_toward(velocity.x, direction.x * target_speed, acceleration * delta)
-		velocity.z = move_toward(velocity.z, direction.z * target_speed, acceleration * delta)
+		velocity.x = move_toward(velocity.x, direction.x * current_target_speed, acceleration * delta)
+		velocity.z = move_toward(velocity.z, direction.z * current_target_speed, acceleration * delta)
 		pivot.rotation.y = lerp_angle(pivot.rotation.y, atan2(direction.x, direction.z), 15 * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 		velocity.z = move_toward(velocity.z, 0, friction * delta)
 
 func handle_crouch_movement(delta: float, direction: Vector3) -> void:
-	var crouch_speed = walk_speed * 0.8
+	var crouch_speed = base_speed * 0.8
 	velocity.x = move_toward(velocity.x, direction.x * crouch_speed, acceleration * delta)
 	velocity.z = move_toward(velocity.z, direction.z * crouch_speed, acceleration * delta)
 	if direction.length() > 0:
@@ -200,7 +185,7 @@ func apply_air_movement(delta: float, direction: Vector3) -> void:
 
 func handle_momentum(delta: float, direction: Vector3) -> void:
 	is_sprinting = Input.is_action_pressed("sprint")
-	var base = run_speed if is_sprinting else walk_speed
+	var base = sprint_speed if is_sprinting else base_speed
 	if direction.length() > 0:
 		momentum = move_toward(momentum, max_momentum_speed - base, momentum_gain_rate * delta)
 	else:

@@ -12,27 +12,24 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1916969234 node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 0.7780348, 0.628221, 0, -0.628221, 0.7780348, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.7780349, 0.62822104, 0, -0.62822104, 0.7780349, 0, -3.281982, 0.65394473)
 script = ExtResource("2_8gbba")
 target = NodePath("../../Player")
-offset = Vector3(0, 8.555, 8)
-vertical_look_offset = 5.0
 
 [node name="CameraDirector" type="Node3D" parent="." unique_id=398816985 node_paths=PackedStringArray("camera", "default_target")]
 script = ExtResource("1_8gbba")
 camera = NodePath("../CameraPivot/Camera3D")
 default_target = NodePath("../Player")
-default_offset = Vector3(0, 10, 6)
 
 [node name="ClickFunction" type="Node3D" parent="CameraDirector" unique_id=992062228]
 script = ExtResource("3_8gbba")
 
-[node name="TestAreaAsset" parent="." unique_id=279789867 instance=ExtResource("5_kry3j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+[node name="TestAreaAsset" parent="." unique_id=147998447 instance=ExtResource("5_kry3j")]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
 
 [node name="Player" parent="." unique_id=379518051 instance=ExtResource("1_bo1nx")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5557842, 0.362576, -0.032974362)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=450912862]
 transform = Transform3D(0.7071068, -0.11061584, -0.69840115, 0.7071068, 0.11061584, 0.69840115, 0, -0.98768836, 0.15643442, 0, 20, 0)

@@ -1,7 +1,7 @@
 extends Camera3D
 
 @export var target: Node3D
-@export var offset: Vector3 = Vector3(0, 0, 0)
+@export var offset: Vector3 = Vector3(0, 3, 3)
 @export var vertical_look_offset: float = 2.0
 @export var follow_speed: float = 5
 @export var rotation_speed: float = 5

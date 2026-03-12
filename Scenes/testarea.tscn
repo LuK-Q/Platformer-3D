@@ -1,28 +1,9 @@
 [gd_scene format=3 uid="uid://cffia5700d1wx"]
 
-[ext_resource type="PackedScene" uid="uid://cgg2pjpsbb3ln" path="res://Blender models/testing area.blend" id="1_q4fj6"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_q4fj6"]
-size = Vector3(3.3929443, 0.33154297, 4.4291077)
-
-[sub_resource type="BoxMesh" id="BoxMesh_3iifp"]
-size = Vector3(3.41, 0.34, 4.395)
+[ext_resource type="PackedScene" uid="uid://b481fubhk86i8" path="res://Blender models/Placeholders/Movement test area.glb" id="1_q4fj6"]
 
 [node name="Node3D" type="Node3D" unique_id=147998447]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="testing area" parent="." unique_id=2111119751 instance=ExtResource("1_q4fj6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.800879, 0)
-
-[node name="Area3D" type="Area3D" parent="." unique_id=2074431092]
-disable_mode = 1
-collision_layer = 4
-collision_mask = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=486619326]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.821482, 2.420565, -4.291529)
-shape = SubResource("BoxShape3D_q4fj6")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=618467386]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8263035, 2.4110434, -4.2848)
-mesh = SubResource("BoxMesh_3iifp")
-skeleton = NodePath("../..")
+[node name="Movement test area" parent="." unique_id=817529193 instance=ExtResource("1_q4fj6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8883574, 0, -0.66868067)
