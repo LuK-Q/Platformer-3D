@@ -50,7 +50,6 @@ _subresources={
 "physics/mask": 3
 },
 "PATH:Cube_002": {
-"generate/physics": true,
 "physics/layer": 4,
 "physics/mask": 3
 },
@@ -75,12 +74,10 @@ _subresources={
 "physics/mask": 3
 },
 "PATH:Cube_007": {
-"generate/physics": true,
 "physics/layer": 4,
 "physics/mask": 3
 },
 "PATH:Cube_008": {
-"generate/physics": true,
 "physics/layer": 4,
 "physics/mask": 3
 },
@@ -104,12 +101,31 @@ _subresources={
 "physics/layer": 4,
 "physics/mask": 3
 },
+"PATH:Cube_013": {
+"generate/physics": true,
+"physics/layer": 4
+},
+"PATH:Cube_014": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:Cube_015": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
 "PATH:Plane": {
 "generate/physics": true,
 "physics/layer": 4,
 "physics/mask": 3
 },
 "PATH:stairs": {
+"generate/physics": true,
+"physics/layer": 4,
+"physics/mask": 3
+},
+"PATH:stairs_001": {
 "generate/physics": true,
 "physics/layer": 4,
 "physics/mask": 3

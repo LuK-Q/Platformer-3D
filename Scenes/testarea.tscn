@@ -5,5 +5,5 @@
 [node name="Node3D" type="Node3D" unique_id=147998447]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="Movement test area" parent="." unique_id=817529193 instance=ExtResource("1_q4fj6")]
+[node name="Movement test area" parent="." unique_id=1590335693 instance=ExtResource("1_q4fj6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8883574, 0, -0.66868067)
