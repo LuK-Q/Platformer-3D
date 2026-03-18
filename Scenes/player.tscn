@@ -45,11 +45,17 @@ animation = &"jumping up"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1ek2"]
 animation = &"Landing"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h4iuc"]
+animation = &"Quick Roll While Running"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7dp3o"]
 animation = &"Running Jump"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x3wgy"]
 animation = &"Running Slide"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fd4e3"]
+animation = &"Running vault"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tx1dd"]
 animation = &"falling to roll"
@@ -62,51 +68,22 @@ animation = &"idle_crouched"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ukyrk"]
 xfade_time = 0.1
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7dp3o"]
-xfade_time = 0.3
-priority = 2
+xfade_time = 0.2
 advance_mode = 2
 advance_condition = &"is_about_to_land"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vgqql"]
-xfade_time = 1.0
-priority = 3
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_crouching"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x3wgy"]
-xfade_time = 0.3
-advance_condition = &"is_jumping"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qqcod"]
-xfade_time = 0.2
-advance_mode = 2
-advance_condition = &"is_crouch_walking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_igrcy"]
-xfade_time = 0.2
-advance_mode = 2
-advance_condition = &"is_not_crouch_walking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fd4e3"]
-xfade_time = 0.1
-advance_mode = 2
-advance_condition = &"is_airborne"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6t5aa"]
-xfade_time = 0.3
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_on_floor"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_olqyp"]
+xfade_time = 0.1
 advance_mode = 2
 advance_condition = &"is_running_jump"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wpjfl"]
+xfade_time = 0.2
+switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_on_floor"
 
@@ -115,8 +92,33 @@ xfade_time = 0.1
 advance_mode = 2
 advance_condition = &"is_jumping"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tx1dd"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gymyn"]
 xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"is_on_floor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h4iuc"]
+xfade_time = 0.2
+priority = 2
+switch_mode = 1
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_igrcy"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"is_not_crouch_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qqcod"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"is_crouch_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6t5aa"]
+xfade_time = 0.2
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vgqql"]
 advance_mode = 2
 advance_condition = &"is_sliding"
 
@@ -125,24 +127,13 @@ xfade_time = 0.2
 priority = 2
 switch_mode = 2
 advance_mode = 2
-advance_condition = &"is_not_crouching"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3smsa"]
-xfade_time = 0.5
-advance_mode = 2
-advance_condition = &"is_not_crouching"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l6n3p"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"is_on_floor"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gymyn"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x3wgy"]
 xfade_time = 0.2
 advance_mode = 2
-advance_condition = &"is_on_floor"
+advance_condition = &"is_crouching"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f1ek2"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3smsa"]
 xfade_time = 0.2
 advance_mode = 2
 advance_condition = &"is_not_crouching"
@@ -150,49 +141,79 @@ advance_condition = &"is_not_crouching"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8erm5"]
 xfade_time = 0.2
 advance_mode = 2
-advance_condition = &"is_crouching"
+advance_condition = &"is_not_crouching"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f1ek2"]
+advance_mode = 2
+advance_condition = &"is_falling"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cvnsp"]
-xfade_time = 0.3
-priority = 0
-advance_mode = 2
-advance_condition = &"is_rolling"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fs7ks"]
 priority = 0
 advance_mode = 2
 advance_condition = &"is_hard_landing"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h4iuc"]
-xfade_time = 0.5
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fd4e3"]
+xfade_time = 0.2
+switch_mode = 2
 advance_mode = 2
-advance_condition = &"is_on_floor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tx1dd"]
+xfade_time = 0.2
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"is_jumping"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fs7ks"]
+advance_mode = 2
+advance_condition = &"is_vaulting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2ijsl"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bi64h"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l6n3p"]
+advance_mode = 2
+advance_condition = &"quick_roll"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p1odr"]
+xfade_time = 0.2
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"is_crouching"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ukyrk"]
 "states/Crouch walking/node" = SubResource("AnimationNodeAnimation_ukyrk")
-"states/Crouch walking/position" = Vector2(-430, 40)
-states/End/position = Vector2(952, 70)
+"states/Crouch walking/position" = Vector2(-533, -486)
+states/End/position = Vector2(283, -56)
 states/Falling/node = SubResource("AnimationNodeAnimation_cvnsp")
-states/Falling/position = Vector2(298, -372)
+states/Falling/position = Vector2(-305, -138)
 states/Grounded/node = SubResource("AnimationNodeBlendTree_3smsa")
-states/Grounded/position = Vector2(-283, -315)
+states/Grounded/position = Vector2(-481, -314)
 states/Jump_start/node = SubResource("AnimationNodeAnimation_8erm5")
-states/Jump_start/position = Vector2(298, 40)
+states/Jump_start/position = Vector2(-481, -138)
 states/Landing/node = SubResource("AnimationNodeAnimation_f1ek2")
-states/Landing/position = Vector2(207, -246)
+states/Landing/position = Vector2(-164, -138)
+"states/Quick Roll While Running/node" = SubResource("AnimationNodeAnimation_h4iuc")
+"states/Quick Roll While Running/position" = Vector2(-926, -486)
 "states/Running Jump/node" = SubResource("AnimationNodeAnimation_7dp3o")
-"states/Running Jump/position" = Vector2(-594, -108)
+"states/Running Jump/position" = Vector2(-714, -314)
 "states/Running Slide/node" = SubResource("AnimationNodeAnimation_x3wgy")
-"states/Running Slide/position" = Vector2(15, 40)
-states/Start/position = Vector2(-467, -315)
+"states/Running Slide/position" = Vector2(-714, -486)
+"states/Running vault/node" = SubResource("AnimationNodeAnimation_fd4e3")
+"states/Running vault/position" = Vector2(-714, -138)
+states/Start/position = Vector2(-1239, -520)
 "states/falling to roll/node" = SubResource("AnimationNodeAnimation_tx1dd")
-"states/falling to roll/position" = Vector2(61, -176)
+"states/falling to roll/position" = Vector2(-164, -486)
 "states/hard landing/node" = SubResource("AnimationNodeAnimation_pu2lt")
-"states/hard landing/position" = Vector2(61, -315)
+"states/hard landing/position" = Vector2(-164, -314)
 states/idle_crouched/node = SubResource("AnimationNodeAnimation_3smsa")
-states/idle_crouched/position = Vector2(-198, 40)
-transitions = ["Jump_start", "Falling", SubResource("AnimationNodeStateMachineTransition_ukyrk"), "Falling", "Landing", SubResource("AnimationNodeStateMachineTransition_7dp3o"), "Running Slide", "idle_crouched", SubResource("AnimationNodeStateMachineTransition_vgqql"), "Running Slide", "Jump_start", SubResource("AnimationNodeStateMachineTransition_x3wgy"), "idle_crouched", "Crouch walking", SubResource("AnimationNodeStateMachineTransition_qqcod"), "Crouch walking", "idle_crouched", SubResource("AnimationNodeStateMachineTransition_igrcy"), "Grounded", "Falling", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "falling to roll", "Grounded", SubResource("AnimationNodeStateMachineTransition_6t5aa"), "Grounded", "Running Jump", SubResource("AnimationNodeStateMachineTransition_olqyp"), "Running Jump", "Grounded", SubResource("AnimationNodeStateMachineTransition_wpjfl"), "Grounded", "Jump_start", SubResource("AnimationNodeStateMachineTransition_pu2lt"), "Grounded", "Running Slide", SubResource("AnimationNodeStateMachineTransition_tx1dd"), "Running Slide", "Grounded", SubResource("AnimationNodeStateMachineTransition_fkybt"), "Crouch walking", "Grounded", SubResource("AnimationNodeStateMachineTransition_3smsa"), "hard landing", "Grounded", SubResource("AnimationNodeStateMachineTransition_l6n3p"), "Start", "Grounded", SubResource("AnimationNodeStateMachineTransition_gymyn"), "idle_crouched", "Grounded", SubResource("AnimationNodeStateMachineTransition_f1ek2"), "Grounded", "idle_crouched", SubResource("AnimationNodeStateMachineTransition_8erm5"), "Landing", "falling to roll", SubResource("AnimationNodeStateMachineTransition_cvnsp"), "Landing", "hard landing", SubResource("AnimationNodeStateMachineTransition_fs7ks"), "Landing", "Grounded", SubResource("AnimationNodeStateMachineTransition_h4iuc")]
-graph_offset = Vector2(-781, -453)
+states/idle_crouched/position = Vector2(-358, -486)
+transitions = ["Jump_start", "Falling", SubResource("AnimationNodeStateMachineTransition_ukyrk"), "Falling", "Landing", SubResource("AnimationNodeStateMachineTransition_7dp3o"), "Grounded", "Running Jump", SubResource("AnimationNodeStateMachineTransition_olqyp"), "Running Jump", "Grounded", SubResource("AnimationNodeStateMachineTransition_wpjfl"), "Grounded", "Jump_start", SubResource("AnimationNodeStateMachineTransition_pu2lt"), "Start", "Grounded", SubResource("AnimationNodeStateMachineTransition_gymyn"), "Landing", "Grounded", SubResource("AnimationNodeStateMachineTransition_h4iuc"), "Crouch walking", "idle_crouched", SubResource("AnimationNodeStateMachineTransition_igrcy"), "idle_crouched", "Crouch walking", SubResource("AnimationNodeStateMachineTransition_qqcod"), "hard landing", "Grounded", SubResource("AnimationNodeStateMachineTransition_6t5aa"), "Grounded", "Running Slide", SubResource("AnimationNodeStateMachineTransition_vgqql"), "Running Slide", "Grounded", SubResource("AnimationNodeStateMachineTransition_fkybt"), "Grounded", "idle_crouched", SubResource("AnimationNodeStateMachineTransition_x3wgy"), "idle_crouched", "Grounded", SubResource("AnimationNodeStateMachineTransition_3smsa"), "Crouch walking", "Grounded", SubResource("AnimationNodeStateMachineTransition_8erm5"), "Grounded", "Falling", SubResource("AnimationNodeStateMachineTransition_f1ek2"), "Landing", "hard landing", SubResource("AnimationNodeStateMachineTransition_cvnsp"), "falling to roll", "Grounded", SubResource("AnimationNodeStateMachineTransition_fd4e3"), "Running Slide", "Running Jump", SubResource("AnimationNodeStateMachineTransition_tx1dd"), "Running Jump", "Running vault", SubResource("AnimationNodeStateMachineTransition_fs7ks"), "Running vault", "Grounded", SubResource("AnimationNodeStateMachineTransition_2ijsl"), "Quick Roll While Running", "Grounded", SubResource("AnimationNodeStateMachineTransition_bi64h"), "Running Jump", "Quick Roll While Running", SubResource("AnimationNodeStateMachineTransition_l6n3p"), "Running Slide", "idle_crouched", SubResource("AnimationNodeStateMachineTransition_p1odr")]
+graph_offset = Vector2(-1277, -546)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
 radius = 0.15
@@ -208,79 +229,74 @@ script = ExtResource("1_v0iea")
 
 [node name="Pivot" type="Node3D" parent="." unique_id=1141255174]
 
-[node name="landing_ray" type="RayCast3D" parent="Pivot" unique_id=1226314265]
-target_position = Vector3(0, -1.5, 0)
-collision_mask = 4
-collide_with_areas = true
-debug_shape_custom_color = Color(1, 0.56078434, 0, 1)
-
-[node name="CeilingRay" type="RayCast3D" parent="Pivot" unique_id=551420173]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4669873, 0)
-target_position = Vector3(0, 1, 0)
-collision_mask = 4
-collide_with_areas = true
-collide_with_bodies = false
-debug_shape_custom_color = Color(1, 0, 0, 1)
-debug_shape_thickness = 5
-
-[node name="VaultRay" type="RayCast3D" parent="Pivot" unique_id=492417792]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5513905, 0)
-target_position = Vector3(0, 0, 1)
-collide_with_areas = true
-collide_with_bodies = false
-debug_shape_custom_color = Color(1, 0, 0.78039217, 1)
-
-[node name="WallRayRight" type="RayCast3D" parent="Pivot" unique_id=1332420783]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.02)
-target_position = Vector3(-1, 0, 0)
-collide_with_areas = true
-collide_with_bodies = false
-
-[node name="WallRayLeft" type="RayCast3D" parent="Pivot" unique_id=1778430624]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-target_position = Vector3(1, 0, 0)
-collide_with_areas = true
-collide_with_bodies = false
-debug_shape_custom_color = Color(0, 1, 0, 1)
-
 [node name="playerModel" parent="Pivot" unique_id=2034272635 instance=ExtResource("2_cvnsp")]
 
 [node name="AnimationTree" type="AnimationTree" parent="Pivot/playerModel" unique_id=754962839]
 tree_root = SubResource("AnimationNodeStateMachine_ukyrk")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_about_to_land = false
-parameters/conditions/is_airborne = false
 parameters/conditions/is_crouch_walking = false
 parameters/conditions/is_crouching = false
+parameters/conditions/is_falling = false
 parameters/conditions/is_hard_landing = false
 parameters/conditions/is_jumping = false
 parameters/conditions/is_not_crouch_walking = false
 parameters/conditions/is_not_crouching = false
 parameters/conditions/is_on_floor = false
-parameters/conditions/is_rolling = false
 parameters/conditions/is_running_jump = false
 parameters/conditions/is_sliding = false
+parameters/conditions/is_vaulting = false
+parameters/conditions/quick_roll = false
 "parameters/Grounded/Ground movement/blend_position" = 0.40830398
 
-[node name="backuptree" type="AnimationTree" parent="Pivot/playerModel" unique_id=1956934072]
-active = false
-deterministic = false
-reset_on_save = false
-tree_root = SubResource("AnimationNodeStateMachine_ukyrk")
-anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/is_about_to_land = false
-parameters/conditions/is_airborne = false
-parameters/conditions/is_crouch_walking = false
-parameters/conditions/is_crouching = false
-parameters/conditions/is_hard_landing = false
-parameters/conditions/is_jumping = false
-parameters/conditions/is_not_crouch_walking = false
-parameters/conditions/is_not_crouching = false
-parameters/conditions/is_on_floor = false
-parameters/conditions/is_rolling = false
-parameters/conditions/is_running_jump = false
-parameters/conditions/is_sliding = false
-"parameters/Grounded/Ground movement/blend_position" = 0.40830398
+[node name="landing_ray" type="RayCast3D" parent="Pivot" unique_id=1226314265]
+target_position = Vector3(0, -1.5, 0)
+collision_mask = 4
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0.56078434, 0, 1)
+
+[node name="CeilingRay" type="RayCast3D" parent="Pivot" unique_id=128422436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28340822, 0)
+target_position = Vector3(0, 1, 0)
+collision_mask = 4
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="LowLedgeRay" type="RayCast3D" parent="Pivot" unique_id=492417792]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+target_position = Vector3(0, 0, 1)
+collision_mask = 4
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0.78039217, 1)
+
+[node name="HighWallRay" type="RayCast3D" parent="Pivot" unique_id=391319212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+target_position = Vector3(0, 0, 1)
+collision_mask = 4
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0.6569956, 0.87423503, 1)
+
+[node name="TopDownRay" type="RayCast3D" parent="Pivot" unique_id=707647160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 1)
+target_position = Vector3(0, -2, 0)
+collision_mask = 4
+collide_with_areas = true
+debug_shape_custom_color = Color(0.6007448, 3.0322373e-05, 0.46424663, 1)
+
+[node name="WallRayRight" type="RayCast3D" parent="Pivot" unique_id=1332420783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.02)
+target_position = Vector3(-0.75, 0, 0)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="WallRayLeft" type="RayCast3D" parent="Pivot" unique_id=1778430624]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0.75, 0, 0)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(0, 1, 0, 1)
 
 [node name="LowerCollision" type="CollisionShape3D" parent="." unique_id=1553374481]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.41399366, 0)

@@ -26,7 +26,9 @@ extends CharacterBody3D
 @onready var pivot: Node3D = $Pivot
 @onready var camera_node: Camera3D = get_viewport().get_camera_3d()
 @onready var ceiling_ray: RayCast3D = $Pivot/CeilingRay
-@onready var VaultRay: RayCast3D = $Pivot/VaultRay
+@onready var LowLedgeRay: RayCast3D = $Pivot/LowLedgeRay
+@onready var HighWallRay: RayCast3D = $Pivot/HighWallRay
+@onready var TopDownRay: RayCast3D = $Pivot/TopDownRay
 @onready var WallRayRight: RayCast3D = $Pivot/WallRayRight
 @onready var WallRayLeft: RayCast3D = $Pivot/WallRayLeft
 @onready var lower_collision: CollisionShape3D = $LowerCollision
@@ -41,9 +43,10 @@ extends CharacterBody3D
 enum State {
 	GROUNDED,      # Idle, Walk, Run
 	AIRBORNE,      # Skok, Opadanie
-	CROUCHING,     # Kucanie i chodzenie w kuckach
+	CROUCHING,     
 	SLIDING,       # Wślizg
 	HARD_LANDING,  # Stun po upadku
+	ROLLING,       
 	# Przyszłe stany przygotowane do implementacji:
 	VAULTING,
 	WALL_RUNNING,
@@ -56,26 +59,35 @@ var previous_state: State = State.GROUNDED
 
 var current_blend := 0.0
 var wants_to_roll := false 
+var is_hard_landing := false 
 var land_velocity := 0.0   
 var slide_timer := 0.0
+var is_running_jump_active := false # Nowa zmienna do małego skoku
+var state_timer := 0.0
+
 #endregion
 
 func _ready() -> void:
 	anim_tree.active = true
 
 func _physics_process(delta: float) -> void:
-	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	# 1. Pobieranie wejścia TYLKO jeśli stan na to pozwala
+	var input_dir := Vector2.ZERO
+	if current_state not in [State.HARD_LANDING]: 
+		input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+
+	# 2. Obliczanie kierunku (będzie (0,0,0) podczas Hard Landing)
 	var cam_basis := camera_node.global_transform.basis
 	var forward := Vector3(cam_basis.z.x, 0, cam_basis.z.z).normalized()
 	var right := Vector3(cam_basis.x.x, 0, cam_basis.x.z).normalized()
 	var direction := (forward * input_dir.y + right * input_dir.x).normalized()
-	
 	var horizontal_speed = Vector2(velocity.x, velocity.z).length()
 	
 	# Raycast antycypacji lądowania
 	var is_about_to_land = landing_ray.is_colliding() and velocity.y < -1.0
 	anim_tree.set("parameters/conditions/is_about_to_land", is_about_to_land)
 
+	# 3. Maszyna Stanów
 	match current_state:
 		State.GROUNDED:
 			process_grounded(delta, direction, horizontal_speed)
@@ -87,6 +99,8 @@ func _physics_process(delta: float) -> void:
 			process_sliding(delta)
 		State.HARD_LANDING:
 			process_hard_landing(delta)
+		State.ROLLING:
+			process_rolling(delta, direction) # Dodana obsługa rolla
 
 	move_and_slide()
 	update_animations()
@@ -97,7 +111,6 @@ func process_grounded(delta: float, direction: Vector3, speed: float) -> void:
 		change_state(State.AIRBORNE)
 		return
 
-	# WEJŚCIE W KUCANIE LUB WŚLIZG
 	if Input.is_action_just_pressed("crouch"):
 		if Input.is_action_pressed("sprint") and speed > slide_activation_threshold:
 			change_state(State.SLIDING)
@@ -106,6 +119,8 @@ func process_grounded(delta: float, direction: Vector3, speed: float) -> void:
 		return
 
 	if Input.is_action_just_pressed("jump"):
+		# Sprawdzamy czy to był Running Jump
+		is_running_jump_active = Input.is_action_pressed("sprint") and speed > 1.0
 		velocity.y = jump_velocity
 		change_state(State.AIRBORNE)
 		return
@@ -120,14 +135,25 @@ func process_grounded(delta: float, direction: Vector3, speed: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, friction * delta)
 
 func process_airborne(delta: float, direction: Vector3) -> void:
-	land_velocity = velocity.y # Zapisujemy prędkość na wypadek twardego lądowania
+	
+	if velocity.y < land_velocity:
+		land_velocity = velocity.y
+
+	# Wykrywamy chęć rolla w trakcie lotu
+	if Input.is_action_just_pressed("crouch"):
+		wants_to_roll = true
 
 	if is_on_floor():
-		# Sprawdzamy, czy uderzyliśmy o ziemię zbyt mocno
-		if land_velocity < hard_land_threshold and not wants_to_roll:
+		if wants_to_roll:
+			change_state(State.ROLLING)
+		elif land_velocity < hard_land_threshold:
 			change_state(State.HARD_LANDING)
 		else:
 			change_state(State.GROUNDED)
+		
+		# Reset zmiennych po wylądowaniu
+		land_velocity = 0.0
+		wants_to_roll = false
 		return
 
 	var grav = get_gravity_value() * (gravity_multiplier if velocity.y > 0 else fall_gravity_multiplier)
@@ -162,7 +188,7 @@ func process_sliding(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		velocity.y = jump_velocity * 0.8
 		change_state(State.AIRBORNE)
-		state_machine.travel("Jump_start") # Wymuszamy przejście w animacji
+		state_machine.travel("Running Jump") # Wymuszamy przejście w animacji
 		return
 	
 	# KONIEC WŚLIZGU
@@ -173,13 +199,34 @@ func process_sliding(delta: float) -> void:
 			change_state(State.GROUNDED)
 
 func process_hard_landing(delta: float) -> void:
-	# Stun - postać się zatrzymuje
-	velocity.x = move_toward(velocity.x, 0, friction * delta)
-	velocity.z = move_toward(velocity.z, 0, friction * delta)
+	velocity.x = move_toward(velocity.x, 0, friction * 3 * delta)
+	velocity.z = move_toward(velocity.z, 0, friction * 3 * delta)
 	
-	# Zabezpieczenie: Jeśli animacja Hard Landing się skończyła (lub z jakiegoś powodu drzewo ją pominęło), wracamy
-	if state_machine.get_current_node() != "hard landing" and is_on_floor():
+	if state_timer > 0:
+		state_timer -= delta # Dajemy AnimationTree czas na przejście
+	elif state_machine.get_current_node() != "hard landing" and is_on_floor():
 		change_state(State.GROUNDED)
+
+func process_rolling(delta: float, direction: Vector3) -> void:
+	var roll_speed = run_speed * 0.6 
+	var roll_dir = direction
+	if roll_dir.length() == 0:
+		roll_dir = Vector3(sin(pivot.rotation.y), 0, cos(pivot.rotation.y)).normalized()
+	
+	# Aplikujemy prędkość - postać zawsze będzie się przesuwać
+	velocity.x = move_toward(velocity.x, roll_dir.x * roll_speed, acceleration * delta)
+	velocity.z = move_toward(velocity.z, roll_dir.z * roll_speed, acceleration * delta)
+
+	if direction.length() > 0:
+		pivot.rotation.y = lerp_angle(pivot.rotation.y, atan2(direction.x, direction.z), 20 * delta)
+	
+	# Obsługa wyjścia ze stanu
+	if state_timer > 0:
+		state_timer -= delta
+	elif state_machine.get_current_node() != "falling to roll" and is_on_floor():
+		change_state(State.GROUNDED)
+		
+		
 #endregion
 
 #region FUNKCJE ZMIANY STANÓW
@@ -192,8 +239,15 @@ func change_state(new_state: State) -> void:
 	previous_state = current_state
 	current_state = new_state
 	
-	# Logika wykonywana RAZ przy WEJŚCIU w dany stan (np. zmiana kolizji)
 	match current_state:
+		State.HARD_LANDING:
+			velocity.x = 0
+			velocity.z = 0
+			state_timer = 0.1 # 0.1s blokady przed sprawdzaniem animacji
+			state_machine.travel("hard landing") 
+		State.ROLLING:
+			state_timer = 0.1
+			state_machine.travel("falling to roll")
 		State.SLIDING:
 			slide_timer = slide_timer_max
 			upper_collision.disabled = true
@@ -202,9 +256,9 @@ func change_state(new_state: State) -> void:
 		State.CROUCHING:
 			upper_collision.disabled = true
 		State.GROUNDED, State.AIRBORNE:
-			# Gdy wracamy do normalnego stania/lotu, upewniamy się, że kolizja wraca
 			if upper_collision.disabled and not is_ceiling_above():
 				upper_collision.disabled = false
+
 #endregion
 
 #region FUNKCJE ZMIANY ANIMACJI
@@ -220,22 +274,26 @@ func update_animations() -> void:
 		walk_blend = 1.0 if is_sprinting else 0.5
 	anim_tree.set("parameters/Grounded/Ground movement/blend_position", walk_blend)
 	
-	# Uznajemy postać za "na podłodze", jeśli jest w jakimkolwiek stanie naziemnym
-	var is_ground_state = current_state in [State.GROUNDED, State.CROUCHING, State.SLIDING, State.HARD_LANDING]
+	var is_ground_state = current_state in [State.GROUNDED, State.CROUCHING, State.SLIDING, State.HARD_LANDING, State.ROLLING]
 	anim_tree.set("parameters/conditions/is_on_floor", is_ground_state)
-	anim_tree.set("parameters/conditions/is_airborne", current_state == State.AIRBORNE)
 	
-	# Logika rzutowania stanów na drzewo
+	# POPRAWIONA LOGIKA SKOKU
+	var is_jumping = current_state == State.AIRBORNE and velocity.y > 0.0
+	var is_falling = current_state == State.AIRBORNE and velocity.y <= 0.0
+	
+	anim_tree.set("parameters/conditions/is_jumping", is_jumping and not is_running_jump_active)
+	anim_tree.set("parameters/conditions/is_running_jump", is_jumping and is_running_jump_active)
+	anim_tree.set("parameters/conditions/is_falling", is_falling)
+	
 	anim_tree.set("parameters/conditions/is_crouching", current_state == State.CROUCHING)
 	anim_tree.set("parameters/conditions/is_not_crouching", current_state != State.CROUCHING)
-	
 	anim_tree.set("parameters/conditions/is_sliding", current_state == State.SLIDING)
 	anim_tree.set("parameters/conditions/is_hard_landing", current_state == State.HARD_LANDING)
 	
-	# Uproszczone kucanie z ruchem
 	var is_crouch_walking = current_state == State.CROUCHING and is_moving
 	anim_tree.set("parameters/conditions/is_crouch_walking", is_crouch_walking)
 	anim_tree.set("parameters/conditions/is_not_crouch_walking", not is_crouch_walking)
+	
 #endregion
 
 #region POZOSTAŁE FUNKCJE
@@ -261,4 +319,5 @@ func apply_gravity(delta: float) -> void:
 
 func get_gravity_value() -> float:
 	return ProjectSettings.get_setting("physics/3d/default_gravity")
+	
 #endregion
