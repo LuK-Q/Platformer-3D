@@ -152,6 +152,8 @@ func process_airborne(delta: float, direction: Vector3) -> void:
 		HighWallRay.force_raycast_update()
 		LedgeGrabRay.force_raycast_update()
 		TopDownRay.force_raycast_update()
+		WallRayLeft.force_raycast_update()
+		WallRayRight.force_raycast_update()
 		
 		var normal = get_wall_normal()
 		var forward = pivot.global_transform.basis.z 
@@ -167,6 +169,20 @@ func process_airborne(delta: float, direction: Vector3) -> void:
 				if Input.is_action_pressed("move_forward"): 
 					change_state(State.WALL_CLIMBING)
 					return
+			# Sprawdzanie ściany z LEWEJ strony
+			elif WallRayLeft.is_colliding() and velocity.y > -2.0:
+				if Input.is_action_pressed("move_forward"):
+					wall_normal = normal
+					change_state(State.WALL_RUNNING)
+					return
+					
+			# Sprawdzanie ściany z PRAWEJ strony
+			elif WallRayRight.is_colliding() and velocity.y > -2.0:
+				if Input.is_action_pressed("move_forward"):
+					wall_normal = normal
+					change_state(State.WALL_RUNNING)
+					return
+					
 					
 	if velocity.y < land_velocity:
 		land_velocity = velocity.y
@@ -353,6 +369,32 @@ func process_ledge_hanging(delta: float) -> void:
 		get_tree().create_timer(0.2).timeout.connect(func(): is_ledge_dropping = false)
 		return
 
+func process_wall_running(delta: float) -> void:
+	state_timer -= delta
+	
+	# Delikatna grawitacja podczas biegu po ścianie
+	velocity.y -= (get_gravity_value() * 0.5) * delta 
+	
+	# Kierunek biegu to wektor krzyżowy normalnej ściany i wektora UP
+	var run_dir = Vector3.UP.cross(wall_normal).normalized()
+	
+	# Upewniamy się, że biegniemy do przodu, a nie do tyłu
+	var forward = pivot.global_transform.basis.z
+	if run_dir.dot(forward) < 0:
+		run_dir = -run_dir
+		
+	velocity.x = run_dir.x * run_speed
+	velocity.z = run_dir.z * run_speed
+	
+	# Postać lekko dociśnięta do ściany, żeby nie spadła
+	velocity -= wall_normal * 2.0 
+	
+	if state_timer <= 0 or Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump"):
+			# Odskok od ściany w bok
+			velocity = wall_normal * 5.0
+			velocity.y = jump_velocity * 0.8
+		change_state(State.AIRBORNE)
 #endregion
 
 #region FUNKCJE ZMIANY STANÓW
@@ -412,12 +454,23 @@ func update_animations() -> void:
 	var is_vaulting = current_state == State.VAULTING
 	var is_climbing_wall = current_state == State.WALL_CLIMBING
 	var is_sliding_state = current_state == State.SLIDING
-	
+	var is_wall_running = current_state == State.WALL_RUNNING
+	var wall_run_left = false
+	var wall_run_right = false
 	var is_ground_state = current_state in [State.GROUNDED, State.CROUCHING, State.HARD_LANDING, State.ROLLING]
 	var is_falling = current_state == State.AIRBORNE and velocity.y <= 0.0
 	var is_jumping = current_state == State.AIRBORNE and velocity.y > 0.0
 	var is_about_to_land = landing_ray.is_colliding() and velocity.y < -1.0
-
+	
+	
+	if is_wall_running:
+		# Ustalamy stronę po normalnej ściany względem prawej strony postaci
+		var right_dir = pivot.global_transform.basis.x
+		if wall_normal.dot(right_dir) > 0:
+			wall_run_left = true # Ściana po lewej, normalna wskazuje w prawo
+		else:
+			wall_run_right = true
+			
 	# Skakanie
 	anim_tree.set("parameters/conditions/is_jumping", is_jumping and not is_running_jump_active)
 	anim_tree.set("parameters/conditions/is_running_jump", is_jumping and is_running_jump_active)
@@ -450,8 +503,8 @@ func update_animations() -> void:
 
 	# Bieg po ścianie (zablokowane lewo/prawo dopóki nie dodasz logiki)
 	anim_tree.set("parameters/conditions/is_run_climbing", is_climbing_wall)
-	anim_tree.set("parameters/conditions/wall_run_left", false)
-	anim_tree.set("parameters/conditions/wall_run_right", false)
+	anim_tree.set("parameters/conditions/wall_run_left", wall_run_left)
+	anim_tree.set("parameters/conditions/wall_run_right", wall_run_right)
 #endregion
 
 #region POZOSTAŁE FUNKCJE
