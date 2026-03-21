@@ -66,6 +66,11 @@ var state_timer := 0.0
 var vault_target_pos := Vector3.ZERO
 var wall_normal := Vector3.ZERO
 var climb_timer := 0.0
+
+# Zmienne transientne (tymczasowe) dla specyficznych animacji krawędzi
+var is_ledge_climbing := false
+var is_ledge_jumping := false
+var is_ledge_dropping := false
 #endregion
 
 func _ready() -> void:
@@ -82,9 +87,6 @@ func _physics_process(delta: float) -> void:
 	var direction := (forward * input_dir.y + right * input_dir.x).normalized()
 	var horizontal_speed = Vector2(velocity.x, velocity.z).length()
 	
-	var is_about_to_land = landing_ray.is_colliding() and velocity.y < -1.0
-	anim_tree.set("parameters/conditions/is_about_to_land", is_about_to_land)
-
 	match current_state:
 		State.GROUNDED:
 			process_grounded(delta, direction, horizontal_speed)
@@ -214,7 +216,6 @@ func process_sliding(delta: float) -> void:
 	if Input.is_action_just_pressed("jump"):
 		velocity.y = jump_velocity * 1.15
 		change_state(State.AIRBORNE)
-		state_machine.travel("Running Jump") 
 		return
 	
 	if slide_timer <= 0:
@@ -317,27 +318,40 @@ func process_ledge_hanging(delta: float) -> void:
 
 	# 3. Odbicie od ściany (S + Space)
 	if Input.is_action_pressed("move_back") and Input.is_action_just_pressed("jump"):
-		state_machine.travel("Jump From Ledge") 
-		
+		is_ledge_jumping = true
 		pivot.rotation.y = atan2(-wall_normal.x, -wall_normal.z)
-		
 		velocity = wall_normal * 4.0 
 		velocity.y = jump_velocity * 0.8
 		change_state(State.AIRBORNE)
+		# Zdejmij flagę po chwili
+		get_tree().create_timer(0.3).timeout.connect(func(): is_ledge_jumping = false)
 		return
 
 	# 4. Wejście na krawędź (W + Space)
 	if Input.is_action_pressed("move_forward") and Input.is_action_just_pressed("jump"):
-		state_machine.travel("Ledge climb up")
+		is_ledge_climbing = true
 		state_timer = 0.5 
 		
-		var tween = get_tree().create_tween()
-		var up_position = global_position + Vector3(0, 2.2, 0) 
-		var forward_position = up_position + (pivot.global_transform.basis.z * 1.2)
+		var tween = get_tree().create_tween().set_parallel(false)
+		tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		
-		tween.tween_property(self, "global_position", up_position, 0.3)
-		tween.tween_property(self, "global_position", forward_position, 0.2)
-		tween.tween_callback(func(): change_state(State.GROUNDED))
+		var up_position = global_position + Vector3(0, 1.7, 0) 
+		var forward_position = up_position + (pivot.global_transform.basis.z * 0.8) 
+		
+		tween.tween_property(self, "global_position", up_position, 0.35)
+		tween.tween_property(self, "global_position", forward_position, 0.25)
+		tween.tween_callback(func(): 
+			is_ledge_climbing = false
+			change_state(State.GROUNDED)
+		)
+		return
+		
+	# 5. Puszczenie się krawędzi w dół (np. Crouch)
+	if Input.is_action_just_pressed("crouch"):
+		is_ledge_dropping = true
+		change_state(State.AIRBORNE)
+		get_tree().create_timer(0.2).timeout.connect(func(): is_ledge_dropping = false)
+		return
 
 #endregion
 
@@ -352,25 +366,20 @@ func change_state(new_state: State) -> void:
 	match current_state:
 		State.WALL_CLIMBING:
 			climb_timer = 0.2 
-			state_machine.travel("Wall Run Forward") 
 		State.LEDGE_HANGING:
-			state_machine.travel("Hanging Idle")
 			velocity = Vector3.ZERO
 			lower_collision.disabled = true
 			state_timer = 0.0 
 		State.VAULTING:
 			state_timer = 0.1 
-			state_machine.travel("Running vault") 
 			lower_collision.disabled = true 
 			upper_collision.disabled = true 
 		State.HARD_LANDING:
 			velocity.x = 0
 			velocity.z = 0
 			state_timer = 0.1 
-			state_machine.travel("hard landing") 
 		State.ROLLING:
 			state_timer = 0.1
-			state_machine.travel("falling to roll")
 		State.SLIDING:
 			slide_timer = slide_timer_max
 			upper_collision.disabled = true
@@ -398,55 +407,51 @@ func update_animations() -> void:
 	current_blend = lerp(current_blend, target_blend, get_physics_process_delta_time() * lerp_speed)	
 	anim_tree.set("parameters/Grounded/Movement/blend_position", current_blend)
 	
-	# Zmienne podstawowe stanów
+	# Grupowanie stanów logicznych
 	var is_hanging = current_state == State.LEDGE_HANGING
 	var is_vaulting = current_state == State.VAULTING
 	var is_climbing_wall = current_state == State.WALL_CLIMBING
 	var is_sliding_state = current_state == State.SLIDING
 	
-	# Restrykcyjne zabezpieczenie stanów podłogi i opadania.
-	# Zapewnia, że drzewo nie zepsuje animacji krawędzi lub wspinaczki!
-	var is_ground_state = false
-	var is_falling = false
-	var is_jumping = false
-	
-	if not is_hanging and not is_vaulting and not is_climbing_wall:
-		is_ground_state = current_state in [State.GROUNDED, State.CROUCHING, State.HARD_LANDING, State.ROLLING]
-		is_falling = current_state == State.AIRBORNE and velocity.y <= 0.0
-		is_jumping = current_state == State.AIRBORNE and velocity.y > 0.0
+	var is_ground_state = current_state in [State.GROUNDED, State.CROUCHING, State.HARD_LANDING, State.ROLLING]
+	var is_falling = current_state == State.AIRBORNE and velocity.y <= 0.0
+	var is_jumping = current_state == State.AIRBORNE and velocity.y > 0.0
+	var is_about_to_land = landing_ray.is_colliding() and velocity.y < -1.0
 
-	# Warunki dla ruchu po krawędzi
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back") if is_hanging else Vector2.ZERO
-	var is_ledge_moving_left = is_hanging and input_dir.x < -0.1
-	var is_ledge_moving_right = is_hanging and input_dir.x > 0.1
-	var is_hanging_idle = is_hanging and not is_ledge_moving_left and not is_ledge_moving_right
-	
-	# Warunek dołączenia do biegu po ścianie
-	var is_run_climbing = is_climbing_wall
-
-	# Wysłanie parametrów do AnimationTree
-	anim_tree.set("parameters/conditions/is_on_floor", is_ground_state)
+	# Skakanie
 	anim_tree.set("parameters/conditions/is_jumping", is_jumping and not is_running_jump_active)
 	anim_tree.set("parameters/conditions/is_running_jump", is_jumping and is_running_jump_active)
 	anim_tree.set("parameters/conditions/is_falling", is_falling)
-	
+	anim_tree.set("parameters/conditions/is_about_to_land", is_about_to_land)
+	anim_tree.set("parameters/conditions/is_on_floor", is_ground_state)
+
+	# Kucanie i czołganie
+	var is_crouch_walking = current_state == State.CROUCHING and is_moving
+	var is_not_crouch_walking = current_state == State.CROUCHING and not is_moving
 	anim_tree.set("parameters/conditions/is_crouching", current_state == State.CROUCHING)
 	anim_tree.set("parameters/conditions/is_not_crouching", current_state != State.CROUCHING)
-	anim_tree.set("parameters/conditions/is_hard_landing", current_state == State.HARD_LANDING)
-	
-	anim_tree.set("parameters/conditions/is_hanging", is_hanging)
-	anim_tree.set("parameters/conditions/is_ledge_moving_left", is_ledge_moving_left)
-	anim_tree.set("parameters/conditions/is_ledge_moving_right", is_ledge_moving_right)
-	anim_tree.set("parameters/conditions/is_hanging_idle", is_hanging_idle)
-	
-	anim_tree.set("parameters/conditions/is_vaulting", is_vaulting)
-	anim_tree.set("parameters/conditions/is_climbing_wall", is_climbing_wall)
-	anim_tree.set("parameters/conditions/is_run_climbing", is_run_climbing)
-	anim_tree.set("parameters/conditions/is_sliding", is_sliding_state)
-	
-	var is_crouch_walking = current_state == State.CROUCHING and is_moving
 	anim_tree.set("parameters/conditions/is_crouch_walking", is_crouch_walking)
-	anim_tree.set("parameters/conditions/is_not_crouch_walking", not is_crouch_walking)
+	anim_tree.set("parameters/conditions/is_not_crouch_walking", is_not_crouch_walking)
+
+	# Wślizg, Parkour i Upadki
+	anim_tree.set("parameters/conditions/is_sliding", is_sliding_state)
+	anim_tree.set("parameters/conditions/is_vaulting", is_vaulting)
+	anim_tree.set("parameters/conditions/is_rolling", current_state == State.ROLLING)
+	anim_tree.set("parameters/conditions/is_hard_landing", current_state == State.HARD_LANDING)
+
+	# Krawędzie
+	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_back") if is_hanging else Vector2.ZERO
+	anim_tree.set("parameters/conditions/caught_ledge", current_state == State.LEDGE_HANGING)
+	anim_tree.set("parameters/conditions/ledge_let_go", is_ledge_dropping)
+	anim_tree.set("parameters/conditions/is_climbing_ledge", is_ledge_climbing)
+	anim_tree.set("parameters/conditions/is_jumping_from_ledge", is_ledge_jumping)
+	anim_tree.set("parameters/conditions/is_ledge_moving_left", is_hanging and input_dir.x < -0.1)
+	anim_tree.set("parameters/conditions/is_ledge_moving_right", is_hanging and input_dir.x > 0.1)
+
+	# Bieg po ścianie (zablokowane lewo/prawo dopóki nie dodasz logiki)
+	anim_tree.set("parameters/conditions/is_run_climbing", is_climbing_wall)
+	anim_tree.set("parameters/conditions/wall_run_left", false)
+	anim_tree.set("parameters/conditions/wall_run_right", false)
 #endregion
 
 #region POZOSTAŁE FUNKCJE
