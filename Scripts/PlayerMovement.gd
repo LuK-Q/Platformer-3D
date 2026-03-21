@@ -352,7 +352,7 @@ func change_state(new_state: State) -> void:
 	match current_state:
 		State.WALL_CLIMBING:
 			climb_timer = 0.2 
-			state_machine.travel("Wall Run Forward and grab ledge") 
+			state_machine.travel("Wall Run Forward") 
 		State.LEDGE_HANGING:
 			state_machine.travel("Hanging Idle")
 			velocity = Vector3.ZERO
