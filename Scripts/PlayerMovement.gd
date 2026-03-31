@@ -50,7 +50,8 @@ enum State {
 	VAULTING,
 	WALL_RUNNING,
 	LEDGE_HANGING,
-	LEDGE_MOVING
+	LEDGE_MOVING,
+	LEDGE_CLIMBING
 }
 
 var current_state: State = State.GROUNDED
@@ -65,8 +66,13 @@ var is_running_jump_active := false
 var state_timer := 0.0
 var vault_target_pos := Vector3.ZERO
 var wall_normal := Vector3.ZERO
+#Climbing vars
 var climb_timer := 0.0
-
+var climb_start_pos: Vector3
+var climb_target_pos: Vector3
+var climb_duration := 1.1
+var climb_elapsed := 0.0
+var climb_delay := 0.3
 # Zmienne transientne (tymczasowe) dla specyficznych animacji krawędzi
 var is_ledge_climbing := false
 var is_ledge_jumping := false
@@ -106,11 +112,14 @@ func _physics_process(delta: float) -> void:
 			process_wall_climbing(delta)
 		State.LEDGE_HANGING:
 			process_ledge_hanging(delta)
-			
+		State.WALL_RUNNING:
+			process_wall_running(delta)
+		State.LEDGE_CLIMBING:
+			process_ledge_climbing(delta)
 	move_and_slide()
 	update_animations()
 
-#region FUNKCJE OBSŁUGI POSTACI
+#region FUNKCJE OBSŁUGI STANÓW
 func process_grounded(delta: float, direction: Vector3, speed: float) -> void:
 	if not is_on_floor():
 		change_state(State.AIRBORNE)
@@ -231,6 +240,7 @@ func process_sliding(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("jump"):
 		velocity.y = jump_velocity * 1.15
+		state_machine.travel("Running Jump")
 		change_state(State.AIRBORNE)
 		return
 	
@@ -334,6 +344,7 @@ func process_ledge_hanging(delta: float) -> void:
 
 	# 3. Odbicie od ściany (S + Space)
 	if Input.is_action_pressed("move_back") and Input.is_action_just_pressed("jump"):
+		state_machine.travel("Jump From Ledge")
 		is_ledge_jumping = true
 		pivot.rotation.y = atan2(-wall_normal.x, -wall_normal.z)
 		velocity = wall_normal * 4.0 
@@ -345,21 +356,7 @@ func process_ledge_hanging(delta: float) -> void:
 
 	# 4. Wejście na krawędź (W + Space)
 	if Input.is_action_pressed("move_forward") and Input.is_action_just_pressed("jump"):
-		is_ledge_climbing = true
-		state_timer = 0.5 
-		
-		var tween = get_tree().create_tween().set_parallel(false)
-		tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		
-		var up_position = global_position + Vector3(0, 1.7, 0) 
-		var forward_position = up_position + (pivot.global_transform.basis.z * 0.8) 
-		
-		tween.tween_property(self, "global_position", up_position, 0.35)
-		tween.tween_property(self, "global_position", forward_position, 0.25)
-		tween.tween_callback(func(): 
-			is_ledge_climbing = false
-			change_state(State.GROUNDED)
-		)
+		start_ledge_climb()
 		return
 		
 	# 5. Puszczenie się krawędzi w dół (np. Crouch)
@@ -395,6 +392,29 @@ func process_wall_running(delta: float) -> void:
 			velocity = wall_normal * 5.0
 			velocity.y = jump_velocity * 0.8
 		change_state(State.AIRBORNE)
+		
+		
+func process_ledge_climbing(delta: float) -> void:
+	velocity = Vector3.ZERO
+
+	climb_elapsed += delta
+
+	var t = clamp(climb_elapsed / climb_duration, 0.0, 1.0)
+	t = ease(t, 0.3)
+
+	if climb_elapsed > 0.0:
+		var base = climb_start_pos.lerp(climb_target_pos, t)
+		var height = sin(t * PI) * 0.4  # tylko łuk
+		
+		global_position = base + Vector3(0, height, 0)
+
+	var target_rotation = atan2(-wall_normal.x, -wall_normal.z)
+	pivot.rotation.y = lerp_angle(pivot.rotation.y, target_rotation, 10 * delta)
+
+	if t >= 1.0:
+		global_position = climb_target_pos
+		is_ledge_climbing = false
+		change_state(State.GROUNDED)
 #endregion
 
 #region FUNKCJE ZMIANY STANÓW
@@ -535,6 +555,14 @@ func try_vault() -> bool:
 		return true 
 			
 	return false 
+	
+func start_ledge_climb():
+	is_ledge_climbing = true
+	climb_elapsed = -climb_delay
+	climb_start_pos = global_position  
+	var up_position = global_position + Vector3(0, 1.7, 0)
+	climb_target_pos = up_position + (pivot.global_transform.basis.z * 0.9)
+	change_state(State.LEDGE_CLIMBING)
 
 func handle_crouch_movement(delta: float, direction: Vector3) -> void:
 	var crouch_speed = walk_speed * 0.6
