@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cdmm021baj746"]
 
-[ext_resource type="Script" uid="uid://db1eqq403h8ij" path="res://Scripts/CameraDirector.gd" id="1_8gbba"]
+[ext_resource type="Script" uid="uid://db1eqq403h8ij" path="res://Scripts/Camera/CameraDirector.gd" id="1_8gbba"]
 [ext_resource type="PackedScene" uid="uid://cerfbd1wi12ct" path="res://Scenes/player.tscn" id="1_bo1nx"]
-[ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://Scripts/camera_look_at_player.gd" id="2_8gbba"]
-[ext_resource type="Script" uid="uid://0jskvd87xvd8" path="res://Scripts/click_to_focus_camera.gd" id="3_8gbba"]
+[ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://Scripts/Camera/camera_look_at_player.gd" id="2_8gbba"]
+[ext_resource type="Script" uid="uid://0jskvd87xvd8" path="res://Scripts/Camera/click_to_focus_camera.gd" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://cffia5700d1wx" path="res://Scenes/testarea.tscn" id="5_kry3j"]
 
 [node name="Main" type="Node" unique_id=687295441]

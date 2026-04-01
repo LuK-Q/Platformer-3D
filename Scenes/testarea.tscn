@@ -7,3 +7,9 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0
 
 [node name="Movement test area" parent="." unique_id=1590335693 instance=ExtResource("1_q4fj6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8883574, 0, -0.66868067)
+
+[node name="Movement test area2" parent="." unique_id=1791920228 instance=ExtResource("1_q4fj6")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.8883574, 0, -0.66868067)
+
+[node name="Movement test area3" parent="." unique_id=1613050959 instance=ExtResource("1_q4fj6")]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 21.286755, 0, 18.901852)
