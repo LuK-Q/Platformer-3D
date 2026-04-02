@@ -6,7 +6,6 @@ var run_timer: float = 0.0
 var side: int = 0 
 
 func enter() -> void:
-	# 1. Wybór strony i normalnej
 	player.WallRayLeft.force_raycast_update()
 	player.WallRayRight.force_raycast_update()
 	
@@ -14,18 +13,19 @@ func enter() -> void:
 		side = -1
 		wall_normal = player.WallRayLeft.get_collision_normal()
 		player.anim_tree.set("parameters/conditions/wall_run_left", true)
+		player.state_machine_playback.start("Wall Run LEFT") 
 	else:
 		side = 1
 		wall_normal = player.WallRayRight.get_collision_normal()
 		player.anim_tree.set("parameters/conditions/wall_run_right", true)
-	
-	# 2. Obliczanie kierunku biegu
+		player.state_machine_playback.start("Wall Run RIGHT")
+		
+	#Obliczanie kierunku biegu
 	var forward = Vector3.UP.cross(wall_normal).normalized()
 	if forward.dot(player.pivot.global_transform.basis.z) < 0:
 		forward = -forward
 	run_direction = forward
 	
-	# 3. Impuls w górę na start
 	player.velocity.y = player.jump_velocity * 0.6 
 	run_timer = player.wall_run_max_time 
 
@@ -36,21 +36,17 @@ func physics_update(delta: float) -> void:
 		state_machine.transition_to("Grounded")
 		return
 
-	# --- AUTOMATYCZNY ODSKOK (Koniec czasu) ---
 	if run_timer <= 0:
-		perform_wall_jump(true) # true = auto-odskok
+		perform_wall_jump(true)
 		return
 
-	# --- MANUALNE PRZERWANIE (Kliknięcie Jump) ---
 	if Input.is_action_just_pressed("jump"):
-		perform_wall_jump(false) # false = manualny skok
+		perform_wall_jump(false)
 		return
 
-	# Sprawdzanie czy ściana nadal jest
 	var current_ray = player.WallRayLeft if side == -1 else player.WallRayRight
 	current_ray.force_raycast_update()
 	if not current_ray.is_colliding():
-		# WYMUSZAMY przejście do animacji spadania, zanim zmienimy stan
 		player.state_machine_playback.travel("Falling")
 		state_machine.transition_to("Airborne")
 		return
@@ -66,23 +62,18 @@ func physics_update(delta: float) -> void:
 	
 	player.move_and_slide()
 
-# Funkcja realizująca odskok i zmianę animacji
+# odskok i zmiana animacji
 func perform_wall_jump(is_auto: bool) -> void:
-	# --- PARAMETRY SIŁY (Możesz je edytować dla lepszego feelu) ---
-	var forward_power = 2  # Jak bardzo postać leci do przodu
-	var away_power = 1.7     # Jak lekko odskakuje od ściany (zmniejszone z 1.2)
-	var up_power = 2.5       # Siła wybicia w górę
+	var forward_power = 2 
+	var away_power = 1.7    
+	var up_power = 2.5       
 	
-	# Jeśli to automatyczny odskok na końcu, możemy go nieco osłabić
 	if is_auto:
 		forward_power *= 0.8
 		up_power *= 0.8
 
-	# --- SKŁADANIE WEKTORA ---
-	# Łączymy kierunek biegu, odbicie od ściany i wektor góra
 	var jump_dir = (run_direction * forward_power + wall_normal * away_power + Vector3.UP * up_power).normalized()
-	
-	# Aplikujemy nową prędkość
+
 	player.velocity = jump_dir * (player.jump_velocity * 1.5)
 	
 	var airborne = state_machine.get_node("Airborne")
@@ -93,6 +84,9 @@ func perform_wall_jump(is_auto: bool) -> void:
 	state_machine.transition_to("Airborne")
 	
 func exit() -> void:
-	# Resetujemy warunki w AnimationTree
 	player.anim_tree.set("parameters/conditions/wall_run_left", false)
 	player.anim_tree.set("parameters/conditions/wall_run_right", false)
+	var airborne = state_machine.get_node("Airborne")
+	if airborne:
+		airborne.wall_run_cooldown = 0.3
+		airborne.vault_cooldown = 0.4

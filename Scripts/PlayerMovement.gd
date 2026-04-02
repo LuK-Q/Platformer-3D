@@ -17,8 +17,9 @@ extends CharacterBody3D
 @export var jump_velocity := 5.0
 @export var gravity_multiplier := 2.0
 @export var fall_gravity_multiplier := 3.0
-@export var soft_land_threshold := -4.0 
-@export var hard_land_threshold := -10.0 
+@export var soft_land_threshold := -8.0 
+@export var hard_land_threshold := -20.0 
+@export var roll_threshold: float = -15.0
 
 @export_group("Sliding & Crouching")
 @export var slide_speed_multiplier := 1.6
@@ -31,21 +32,14 @@ extends CharacterBody3D
 @onready var pivot: Node3D = $Pivot
 @onready var camera_node: Camera3D = get_viewport().get_camera_3d()
 
-# Raycasty (znajdują się w Pivot zgodnie z Twoją strukturą)
 @onready var ceiling_ray: RayCast3D = $Pivot/CeilingRay
-@onready var LowLedgeRay: RayCast3D = $Pivot/LowLedgeRay
 @onready var HighWallRay: RayCast3D = $Pivot/HighWallRay
-@onready var TopDownRay: RayCast3D = $Pivot/TopDownRay
 @onready var WallRayRight: RayCast3D = $Pivot/WallRayRight
 @onready var WallRayLeft: RayCast3D = $Pivot/WallRayLeft
-@onready var LedgeGrabRay: RayCast3D = $Pivot/LedgeGrabRay
-@onready var landing_ray: RayCast3D = $Pivot/landing_ray
 
-# Kolizje
 @onready var lower_collision: CollisionShape3D = $LowerCollision
 @onready var upper_collision: CollisionShape3D = $UpperCollision
 
-# Animacje (ścieżka zależy od nazwy Twojego importowanego modelu)
 @onready var anim_tree: AnimationTree = $Pivot/playerModel/AnimationTree
 @onready var state_machine_playback: AnimationNodeStateMachinePlayback = anim_tree.get("parameters/playback")
 #endregion
@@ -53,7 +47,7 @@ extends CharacterBody3D
 func _ready() -> void:
 	anim_tree.active = true
 
-# Funkcje pomocnicze, do których stany mogą się odwoływać
+# Funkcje pomocnicze
 func get_gravity_value() -> float:
 	return ProjectSettings.get_setting("physics/3d/default_gravity")
 

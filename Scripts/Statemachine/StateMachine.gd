@@ -30,9 +30,7 @@ func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.physics_update(delta)
 	
-# Funkcja wywoływana przez stany, by przejść do innego stanu
-# StateMachine.gd
-var previous_state: State # Nowa zmienna do walidacji parkouru
+var previous_state: State
 
 func transition_to(state_name: String) -> void:
 	var key = state_name.to_lower()
@@ -40,7 +38,7 @@ func transition_to(state_name: String) -> void:
 		return
 		
 	if current_state:
-		previous_state = current_state # Zapamiętujemy skąd przychodzimy
+		previous_state = current_state
 		current_state.exit()
 		
 	current_state = states[key]

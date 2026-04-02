@@ -2,11 +2,21 @@
 
 [ext_resource type="PackedScene" uid="uid://b481fubhk86i8" path="res://Blender models/Placeholders/Movement test area.glb" id="1_q4fj6"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_q4fj6"]
+size = Vector3(5.021858, 1.0113525, 0.9725914)
+
 [node name="Node3D" type="Node3D" unique_id=147998447]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Movement test area" parent="." unique_id=1590335693 instance=ExtResource("1_q4fj6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8883574, 0, -0.66868067)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Movement test area" unique_id=1435925565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.9993443, 10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Movement test area/StaticBody3D" unique_id=265599616]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2289934, -0.4928589, 0.28343964)
+shape = SubResource("BoxShape3D_q4fj6")
 
 [node name="Movement test area2" parent="." unique_id=1791920228 instance=ExtResource("1_q4fj6")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.8883574, 0, -0.66868067)
