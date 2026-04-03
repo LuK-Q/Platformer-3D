@@ -4,6 +4,7 @@ var fall_speed: float = 0.0
 var wall_run_cooldown: float = 0.0
 var vertical_wall_run_cooldown: float = 0.0
 var vault_cooldown: float = 0.0
+var ledge_grab_cooldown: float = 0.0
 
 func enter() -> void:
 	player.anim_tree.set("parameters/conditions/is_on_floor", false)
@@ -14,6 +15,9 @@ func enter() -> void:
 	player.anim_tree.set("parameters/conditions/do_hard_land", false)
 
 func physics_update(delta: float) -> void:
+	if ledge_grab_cooldown > 0:
+		ledge_grab_cooldown -= delta
+		
 	if wall_run_cooldown > 0:
 		wall_run_cooldown -= delta
 		
@@ -76,7 +80,8 @@ func get_camera_relative_direction(input_dir: Vector2) -> Vector3:
 	return (forward * input_dir.y + right * input_dir.x).normalized()
 
 func check_parkour_opportunities() -> void:
-
+	if check_ledge_grab_opportunity():
+		return
 	if Input.is_action_pressed("move_forward"):
 		if check_vault_opportunity():
 			return
@@ -109,6 +114,48 @@ func check_parkour_opportunities() -> void:
 		if (left_hit or right_hit) and Input.is_action_pressed("move_forward"):
 			state_machine.transition_to("WallRunning")
 			return
+
+
+func check_ledge_grab_opportunity(ignore_y_velocity: bool = false) -> bool:
+	if ledge_grab_cooldown > 0:
+		return false
+		
+	if not ignore_y_velocity and player.velocity.y > 1.0:
+		return false
+		
+	var chest_cast = player.get_node("Pivot/LedgeChestCast")
+	var head_ray = player.get_node("Pivot/LedgeHeadRay")
+	var height_node = player.get_node("Pivot/LedgeHeightNode")
+	var height_ray = height_node.get_node("LedgeHeightRay")
+	
+	chest_cast.force_shapecast_update()
+	head_ray.force_raycast_update()
+	
+	if chest_cast.is_colliding() and not head_ray.is_colliding():
+		var original_local_pos = height_node.position
+		var wall_norm = chest_cast.get_collision_normal(0)
+		var hit_point = chest_cast.get_collision_point(0)
+		var forward_dir = player.pivot.global_transform.basis.z 
+		var probe_position = hit_point + (forward_dir * 0.2)
+		
+		height_node.global_position = Vector3(probe_position.x, height_node.global_position.y, probe_position.z)
+		height_ray.force_raycast_update()
+		
+		if height_ray.is_colliding():
+			var top_hit_point = height_ray.get_collision_point()
+			height_node.position = original_local_pos
+			
+			if (top_hit_point.y - player.global_position.y) > 1.0:
+				var ledge_state = state_machine.get_node("LedgeHanging")
+				ledge_state.wall_normal = wall_norm
+				ledge_state.ledge_height = top_hit_point.y
+				state_machine.transition_to("LedgeHanging")
+				return true
+
+		height_node.position = original_local_pos
+		
+	return false
+
 
 func check_vault_opportunity() -> bool:
 	if vault_cooldown > 0:

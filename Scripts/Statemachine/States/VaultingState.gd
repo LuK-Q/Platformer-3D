@@ -7,11 +7,12 @@ var vault_speed: float = 6.0
 func enter() -> void:
 	player.anim_tree.set("parameters/conditions/is_vaulting", true)
 	player.state_machine_playback.start("Vaulting")
-	player.upper_collision.set_deferred("disabled", true)
+	#player.upper_collision.set_deferred("disabled", true)
+	player.lower_collision.set_deferred("disabled", true)
 	vault_timer = 0.6 
 	vault_direction = player.pivot.global_transform.basis.z
 	player.velocity.y = player.jump_velocity * 0.8
-	vault_speed = player.run_speed * 1.2 
+	vault_speed = player.run_speed * 0.8
 
 func physics_update(delta: float) -> void:
 	vault_timer -= delta
@@ -24,7 +25,8 @@ func physics_update(delta: float) -> void:
 		state_machine.transition_to("Airborne")
 
 func exit() -> void:
-	player.upper_collision.set_deferred("disabled", false)
+	#player.upper_collision.set_deferred("disabled", true)
+	player.lower_collision.set_deferred("disabled", false)
 	player.anim_tree.set("parameters/conditions/is_vaulting", false)
 	
 	var airborne = state_machine.get_node("Airborne")

@@ -15,12 +15,21 @@ func enter() -> void:
 func physics_update(delta: float) -> void:
 	run_timer -= delta
 	if Input.is_action_just_pressed("jump"):
-		perform_exit_leap(true) # true = skok
+		perform_exit_leap(true)
 		return
 
 	player.HighWallRay.force_raycast_update()
-	if run_timer <= 0 or not player.HighWallRay.is_colliding():
-		perform_exit_leap(false) # false = zwykłe odpadnięcie
+	
+	if not player.HighWallRay.is_colliding():
+		var airborne = state_machine.get_node("Airborne")
+		if airborne and airborne.check_ledge_grab_opportunity(true):
+			return
+
+		perform_exit_leap(false)
+		return
+
+	if run_timer <= 0:
+		perform_exit_leap(false) 
 		return
 		
 	if not Input.is_action_pressed("move_forward"):
