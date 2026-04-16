@@ -64,9 +64,9 @@ func physics_update(delta: float) -> void:
 
 # odskok i zmiana animacji
 func perform_wall_jump(is_auto: bool) -> void:
-	var forward_power = 2 
-	var away_power = 1.7    
-	var up_power = 2.5       
+	var forward_power = 2.5 
+	var away_power = 1.2   
+	var up_power = 3       
 	
 	if is_auto:
 		forward_power *= 0.8

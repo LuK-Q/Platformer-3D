@@ -4,15 +4,31 @@
 [ext_resource type="PackedScene" uid="uid://cerfbd1wi12ct" path="res://Scenes/player.tscn" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://Scripts/Camera/camera_look_at_player.gd" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://0jskvd87xvd8" path="res://Scripts/Camera/click_to_focus_camera.gd" id="3_8gbba"]
-[ext_resource type="PackedScene" uid="uid://cffia5700d1wx" path="res://Scenes/testarea.tscn" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://ctqhoom08o8at" path="res://Scenes/Level_Prototype.tscn" id="6_21xkr"]
+
+[sub_resource type="Environment" id="Environment_kry3j"]
+fog_enabled = true
+fog_mode = 1
+fog_light_energy = 0.92
+fog_density = 1.0
+fog_height = -20.0
+fog_height_density = 0.4
+fog_depth_curve = 6.5
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_21xkr"]
+auto_exposure_enabled = true
 
 [node name="Main" type="Node" unique_id=687295441]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=785623424]
+environment = SubResource("Environment_kry3j")
 
 [node name="CameraPivot" type="Marker3D" parent="." unique_id=554526364]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1916969234 node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 0.7780349, 0.62822104, 0, -0.62822104, 0.7780349, 0, -3.281982, 0.65394473)
+attributes = SubResource("CameraAttributesPractical_21xkr")
 script = ExtResource("2_8gbba")
 target = NodePath("../../Player")
 follow_speed = 12.0
@@ -25,9 +41,6 @@ default_target = NodePath("../Player")
 [node name="ClickFunction" type="Node3D" parent="CameraDirector" unique_id=992062228]
 script = ExtResource("3_8gbba")
 
-[node name="TestAreaAsset" parent="." unique_id=147998447 instance=ExtResource("5_kry3j")]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
-
 [node name="Player" parent="." unique_id=379518051 instance=ExtResource("1_bo1nx")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5557842, 0.362576, -0.032974362)
@@ -37,3 +50,6 @@ transform = Transform3D(0.7071068, -0.11061584, -0.69840115, 0.7071068, 0.110615
 light_color = Color(0.9208052, 0.72521806, 0.41911855, 1)
 light_energy = 0.67
 shadow_enabled = true
+
+[node name="Environment" parent="." unique_id=642322791 instance=ExtResource("6_21xkr")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -45.088478, -28.583458, 0.09250641)

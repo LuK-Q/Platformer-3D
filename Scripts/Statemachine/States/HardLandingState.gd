@@ -7,7 +7,7 @@ func enter() -> void:
 	player.velocity.z = 0.0
 	stun_timer = 1.8 
 	player.anim_tree.set("parameters/conditions/is_hard_landing", true)
-	
+	player.state_machine_playback.travel("hard landing")
 	# Tutaj camera shake
 	# lub  dźwięk uderzenia
 

@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var friction := 60.0    
 @export var air_control := 0.1
 @export var wall_run_arrival_v_limit: float = -2.0
-@export var wall_run_max_time: float = 1.2
+@export var wall_run_max_time: float = 1.4
 
 @export_group("Jump & Gravity")
 @export var jump_velocity := 5.0

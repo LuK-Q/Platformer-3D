@@ -1,0 +1,228 @@
+[gd_scene format=3 uid="uid://ctqhoom08o8at"]
+
+[ext_resource type="Texture2D" uid="uid://cpxy1fybm1e8l" path="res://External assets/kenney_prototype-textures/Vector/texture_09.svg" id="1_8mgbh"]
+[ext_resource type="Texture2D" uid="uid://b10nnaxl0yisc" path="res://External assets/kenney_prototype-textures/PNG/Dark/texture_11.png" id="1_el11w"]
+[ext_resource type="Texture2D" uid="uid://1ui6diu2vh7e" path="res://Blender models/Placeholders/Movement test area_texture_02.png" id="2_7suqw"]
+[ext_resource type="Texture2D" uid="uid://ddic38c7pmbhk" path="res://External assets/kenney_prototype-textures/PNG/Light/texture_07.png" id="2_8mgbh"]
+[ext_resource type="Texture2D" uid="uid://ccg28bc10jrr7" path="res://External assets/kenney_prototype-textures/PNG/Light/texture_06.png" id="4_la3tm"]
+[ext_resource type="Texture2D" uid="uid://bvqyjnqtp61b3" path="res://External assets/kenney_prototype-textures/PNG/Red/texture_12.png" id="5_na1re"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s774r"]
+albedo_texture = ExtResource("4_la3tm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kc6l"]
+albedo_texture = ExtResource("2_7suqw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7suqw"]
+albedo_texture = ExtResource("1_8mgbh")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_la3tm"]
+albedo_texture = ExtResource("1_el11w")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_na1re"]
+albedo_texture = ExtResource("2_8mgbh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjnhj"]
+albedo_texture = ExtResource("5_na1re")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yguq1"]
+albedo_texture = ExtResource("2_8mgbh")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5ost"]
+albedo_texture = ExtResource("4_la3tm")
+uv1_triplanar = true
+
+[node name="Main" type="Node3D" unique_id=642322791]
+metadata/_edit_lock_ = true
+
+[node name="FULL SCENE COMBINER FOR EXPORTS" type="CSGCombiner3D" parent="." unique_id=257150759]
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+
+[node name="FLOOR" type="CSGBox3D" parent="." unique_id=1721898336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.35, -0.10000001, -85.55)
+material_override = SubResource("StandardMaterial3D_s774r")
+size = Vector3(312.6, 1, 270.30002)
+metadata/_edit_lock_ = true
+
+[node name="ramp" type="CSGBox3D" parent="." unique_id=1981424843]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.299999, 28.5, -46.75)
+material_override = SubResource("StandardMaterial3D_2kc6l")
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(0.2, 0.2, 1.3000001)
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="ramp" unique_id=1741276386]
+transform = Transform3D(0.99830806, 0.058144853, 0, -0.058144853, 0.99830806, 0, 0, 0, 1, 1.8476267, -0.016569138, 3.8146973e-06)
+size = Vector3(4.7000003, 0.03, 1.3000001)
+metadata/_edit_lock_ = true
+
+[node name="1st step" type="CSGCombiner3D" parent="." unique_id=1992177364]
+material_override = SubResource("StandardMaterial3D_7suqw")
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+metadata/_edit_lock_ = true
+
+[node name="Cube_building" type="CSGBox3D" parent="1st step" unique_id=710293731]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.800001, 0)
+material_override = SubResource("StandardMaterial3D_la3tm")
+size = Vector3(9.6, 36.600002, 12)
+metadata/_edit_lock_ = true
+
+[node name="hollow" type="CSGBox3D" parent="1st step/Cube_building" unique_id=2139754591]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.699999, -0.20000076)
+operation = 2
+size = Vector3(2.1, 2.1, 41.2)
+metadata/_edit_lock_ = true
+
+[node name="Cube_building2" type="CSGBox3D" parent="1st step" unique_id=1165802739]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.800001, -34.100002)
+material_override = SubResource("StandardMaterial3D_na1re")
+size = Vector3(9.6, 36.600002, 12)
+metadata/_edit_lock_ = true
+
+[node name="hollow" type="CSGBox3D" parent="1st step/Cube_building2" unique_id=2103826488]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.7, 1)
+operation = 2
+size = Vector3(2.1, 2.1, 17.4)
+metadata/_edit_lock_ = true
+
+[node name="building" type="CSGBox3D" parent="1st step/Cube_building2" unique_id=370519603]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.325636, -9.299995)
+size = Vector3(18.9, 27.94873, 15.400001)
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="1st step/Cube_building2" unique_id=1540238128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.700003, 0)
+operation = 2
+size = Vector3(16.1, 4.6, 15.7)
+metadata/_edit_lock_ = true
+
+[node name="Skybridge" type="CSGBox3D" parent="1st step" unique_id=1967243728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29.5, -19.449999)
+size = Vector3(2.1, 2.1, 30.1)
+metadata/_edit_lock_ = true
+
+[node name="hollow" type="CSGBox3D" parent="1st step/Skybridge" unique_id=1541142030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.550002)
+operation = 2
+size = Vector3(2, 2, 66.8)
+metadata/_edit_lock_ = true
+
+[node name="window" type="CSGBox3D" parent="1st step/Skybridge" unique_id=1195138846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 11)
+operation = 2
+size = Vector3(5.2000003, 1, 1)
+metadata/_edit_lock_ = true
+
+[node name="window5" type="CSGBox3D" parent="1st step/Skybridge" unique_id=1244558285]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 3)
+operation = 2
+size = Vector3(5.2000003, 1, 1)
+metadata/_edit_lock_ = true
+
+[node name="window7" type="CSGBox3D" parent="1st step/Skybridge" unique_id=117965480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -1)
+operation = 2
+size = Vector3(5.2000003, 1, 1)
+metadata/_edit_lock_ = true
+
+[node name="window8" type="CSGBox3D" parent="1st step/Skybridge" unique_id=675183114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -5)
+operation = 2
+size = Vector3(5.2000003, 1, 1)
+metadata/_edit_lock_ = true
+
+[node name="window3" type="CSGBox3D" parent="1st step/Skybridge" unique_id=524434599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 7)
+operation = 2
+size = Vector3(5.2000003, 1, 1)
+metadata/_edit_lock_ = true
+
+[node name="Electrical box" type="CSGBox3D" parent="1st step" unique_id=846876767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3000007, 29.85, -48.5)
+size = Vector3(1.7, 2.9, 2.1000001)
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="1st step/Electrical box" unique_id=948883127]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.70000076)
+size = Vector3(0.7, 0.6, 2)
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="1st step/Electrical box/CSGBox3D" unique_id=384804673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2999992, -0.8999977)
+size = Vector3(0.4, 3, 0.6)
+metadata/_edit_lock_ = true
+
+[node name="Electrical box2" type="CSGBox3D" parent="1st step" unique_id=754488227]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7000005, 29.85, -48.5)
+size = Vector3(1.7, 2.9, 2.1000001)
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="1st step/Electrical box2" unique_id=1301143097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.70000076)
+size = Vector3(0.7, 0.6, 2)
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="1st step/Electrical box2/CSGBox3D" unique_id=984170809]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2999992, -0.8999977)
+size = Vector3(0.4, 3, 0.6)
+metadata/_edit_lock_ = true
+
+[node name="2nd step" type="CSGCombiner3D" parent="." unique_id=1164204629]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.5, 1, -52.5)
+material_override = SubResource("StandardMaterial3D_7suqw")
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="2nd step" unique_id=1768771011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.8, -9.950001)
+size = Vector3(61.100002, 43, 20.9)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="2nd step/CSGBox3D" unique_id=796002452]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -9.35, 11.450001)
+size = Vector3(30.800001, 24.300001, 11.900001)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="2nd step/CSGBox3D" unique_id=133111862]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.45, -9.3, 11.450001)
+size = Vector3(28.300001, 24.2, 11.900001)
+
+[node name="Doors" type="CSGCombiner3D" parent="." unique_id=1717713919]
+metadata/_edit_lock_ = true
+
+[node name="1" type="CSGBox3D" parent="Doors" unique_id=1402569376]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.049999893, 29.500002, -39.95)
+material_override = SubResource("StandardMaterial3D_wjnhj")
+calculate_tangents = false
+size = Vector3(2.1000001, 2, 0.1)
+metadata/_edit_lock_ = true
+
+[node name="Background" type="CSGCombiner3D" parent="." unique_id=600284037]
+metadata/_edit_lock_ = true
+
+[node name="BG Building" type="CSGBox3D" parent="Background" unique_id=216191742]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.399999, 32.100002, -65.2)
+material_override = SubResource("StandardMaterial3D_yguq1")
+calculate_tangents = false
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(15.6, 65.200005, 16.4)
+metadata/_edit_lock_ = true
+
+[node name="BG Building2" type="CSGBox3D" parent="Background" unique_id=116369035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.600004, 27.350002, -14.949995)
+material_override = SubResource("StandardMaterial3D_h5ost")
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(15.6, 55.7, 35.3)
+metadata/_edit_lock_ = true
