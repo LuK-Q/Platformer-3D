@@ -35,7 +35,7 @@ func _physics_process(_delta: float) -> void:
 			focus_point.global_position = result.position
 			director.focus_on(
 				focus_point,
-				Vector3(0, 3, 3),
+				director.default_offset,
 				1.5,
 				FOCUS_FOLLOW_SPEED,
 				FOCUS_ROTATION_SPEED

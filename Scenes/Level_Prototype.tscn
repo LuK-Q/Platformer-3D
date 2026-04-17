@@ -14,6 +14,7 @@ albedo_texture = ExtResource("4_la3tm")
 albedo_texture = ExtResource("2_7suqw")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7suqw"]
+albedo_color = Color(1.4369954, 1.4369954, 1.4369954, 1)
 albedo_texture = ExtResource("1_8mgbh")
 uv1_triplanar = true
 
@@ -23,16 +24,23 @@ albedo_texture = ExtResource("1_el11w")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_na1re"]
 albedo_texture = ExtResource("2_8mgbh")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g7ecf"]
+albedo_texture = ExtResource("5_na1re")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjnhj"]
 albedo_texture = ExtResource("5_na1re")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yguq1"]
 albedo_texture = ExtResource("2_8mgbh")
 uv1_triplanar = true
+distance_fade_min_distance = 10.0
+distance_fade_max_distance = 20.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5ost"]
 albedo_texture = ExtResource("4_la3tm")
 uv1_triplanar = true
+distance_fade_min_distance = 32.6
+distance_fade_max_distance = 94.55
 
 [node name="Main" type="Node3D" unique_id=642322791]
 metadata/_edit_lock_ = true
@@ -145,6 +153,10 @@ operation = 2
 size = Vector3(5.2000003, 1, 1)
 metadata/_edit_lock_ = true
 
+[node name="CSGBox3D" type="CSGBox3D" parent="1st step/Skybridge" unique_id=1651664479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.3000011, 4.01)
+size = Vector3(2.1, 0.6, 25.82)
+
 [node name="Electrical box" type="CSGBox3D" parent="1st step" unique_id=846876767]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3000007, 29.85, -48.5)
 size = Vector3(1.7, 2.9, 2.1000001)
@@ -196,6 +208,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.45, -9.3, 11.450001)
 size = Vector3(28.300001, 24.2, 11.900001)
 
 [node name="Doors" type="CSGCombiner3D" parent="." unique_id=1717713919]
+material_override = SubResource("StandardMaterial3D_g7ecf")
 metadata/_edit_lock_ = true
 
 [node name="1" type="CSGBox3D" parent="Doors" unique_id=1402569376]
@@ -206,6 +219,8 @@ size = Vector3(2.1000001, 2, 0.1)
 metadata/_edit_lock_ = true
 
 [node name="Background" type="CSGCombiner3D" parent="." unique_id=600284037]
+use_collision = true
+collision_layer = 8
 metadata/_edit_lock_ = true
 
 [node name="BG Building" type="CSGBox3D" parent="Background" unique_id=216191742]
