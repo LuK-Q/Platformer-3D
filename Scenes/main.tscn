@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cerfbd1wi12ct" path="res://Scenes/player.tscn" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://Scripts/Camera/camera_look_at_player.gd" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://0jskvd87xvd8" path="res://Scripts/Camera/click_to_focus_camera.gd" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://6epy24tmhwfq" path="res://Menu/scenes/windows/pause_menu.tscn" id="6_6bp64"]
 [ext_resource type="PackedScene" uid="uid://ctqhoom08o8at" path="res://Scenes/Level_Prototype.tscn" id="6_21xkr"]
+[ext_resource type="Script" uid="uid://cyh0d64pfygbl" path="res://addons/maaacks_menus_template/base/nodes/utilities/pause_menu_controller.gd" id="6_344ge"]
 
 [sub_resource type="Environment" id="Environment_kry3j"]
 fog_enabled = true
@@ -14,6 +16,11 @@ fog_density = 1.0
 fog_height = -20.0
 fog_height_density = 0.4
 fog_depth_curve = 200.0
+volumetric_fog_density = 0.0
+volumetric_fog_emission = Color(0.7420441, 0.82832646, 1, 1)
+volumetric_fog_emission_energy = 0.2
+volumetric_fog_length = 200.0
+volumetric_fog_ambient_inject = 0.5
 
 [sub_resource type="Shader" id="Shader_kry3j"]
 code = "shader_type spatial;
@@ -203,10 +210,13 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5557842, 0.362576, -0.032974362)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=450912862]
-transform = Transform3D(0.7071068, -0.11061584, -0.69840115, 0.7071068, 0.11061584, 0.69840115, 0, -0.98768836, 0.15643442, 0, 20, 0)
-light_color = Color(0.9208052, 0.72521806, 0.41911855, 1)
-light_energy = 0.67
+transform = Transform3D(0.5544672, -0.7379637, -0.38467595, 0.66618466, 0.116559595, 0.73662186, -0.4987626, -0.664698, 0.5562486, 0, 20, 0)
+light_volumetric_fog_energy = 2.248
 shadow_enabled = true
 
 [node name="Environment" parent="." unique_id=642322791 instance=ExtResource("6_21xkr")]
 transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -45.088478, -28.583458, 0.09250641)
+
+[node name="Node" type="Node" parent="." unique_id=113374578]
+script = ExtResource("6_344ge")
+pause_menu_packed = ExtResource("6_6bp64")

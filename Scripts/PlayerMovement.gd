@@ -5,8 +5,8 @@ extends CharacterBody3D
 
 #region EXPORTED VARIABLES
 @export_group("Movement")
-@export var walk_speed := 3.0
-@export var run_speed := 6.0
+@export var walk_speed := 2.0
+@export var run_speed := 5.0
 @export var acceleration := 50.0 
 @export var friction := 60.0    
 @export var air_control := 0.1
