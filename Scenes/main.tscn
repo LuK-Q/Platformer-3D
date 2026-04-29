@@ -1,14 +1,15 @@
 [gd_scene format=3 uid="uid://cdmm021baj746"]
 
 [ext_resource type="Script" uid="uid://db1eqq403h8ij" path="res://Scripts/Camera/CameraDirector.gd" id="1_8gbba"]
-[ext_resource type="PackedScene" uid="uid://cerfbd1wi12ct" path="res://Scenes/player.tscn" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://cerfbd1wi12ct" path="res://Scenes/Entities/player.tscn" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://Scripts/Camera/camera_look_at_player.gd" id="2_8gbba"]
 [ext_resource type="Script" uid="uid://0jskvd87xvd8" path="res://Scripts/Camera/click_to_focus_camera.gd" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://6epy24tmhwfq" path="res://Menu/scenes/windows/pause_menu.tscn" id="6_6bp64"]
-[ext_resource type="PackedScene" uid="uid://ctqhoom08o8at" path="res://Scenes/Level_Prototype.tscn" id="6_21xkr"]
+[ext_resource type="PackedScene" uid="uid://ctqhoom08o8at" path="res://Scenes/Prototype/Level_Prototype.tscn" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://cyh0d64pfygbl" path="res://addons/maaacks_menus_template/base/nodes/utilities/pause_menu_controller.gd" id="6_344ge"]
-[ext_resource type="Script" uid="uid://cbe8voogbs0m3" path="res://Scripts/death_zone.gd" id="8_344ge"]
-[ext_resource type="PackedScene" uid="uid://b371xr0c60ph6" path="res://Scenes/CloudEnemy.tscn" id="9_ynf5e"]
+[ext_resource type="Script" uid="uid://cbe8voogbs0m3" path="res://Scripts/Map/death_zone.gd" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://b371xr0c60ph6" path="res://Scenes/Entities/CloudEnemy.tscn" id="9_ynf5e"]
+[ext_resource type="PackedScene" uid="uid://c26oeuvv5itca" path="res://Scenes/Tools/scene_transition.tscn" id="10_hptm8"]
 
 [sub_resource type="Environment" id="Environment_kry3j"]
 fog_enabled = true
@@ -237,4 +238,13 @@ debug_color = Color(0.8031834, 0.040043965, 5.7756904e-07, 0.41960785)
 [node name="CloudEnemy" parent="." unique_id=451898877 instance=ExtResource("9_ynf5e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.115192, 1.3055644, 8.759048)
 
+[node name="SceneTransition" parent="." unique_id=177604947 instance=ExtResource("10_hptm8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.191894, -7.140117, 27.201761)
+next_scene_path = "uid://cs3oql77lcjj3"
+
+[node name="CollisionShape3D" parent="SceneTransition" index="0" unique_id=286692356]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9405403, -1.5652704, 1.1041546)
+
 [connection signal="body_entered" from="DeathZone" to="DeathZone" method="_on_body_entered"]
+
+[editable path="SceneTransition"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2on0cka1mou1"]
 
 [ext_resource type="Script" uid="uid://bso02gqrwplac" path="res://Menu/scenes/menus/main_menu/MenuBackground3D.gd" id="1_tk3lx"]
-[ext_resource type="PackedScene" uid="uid://cofb2pmcsxvg7" path="res://Scenes/playerModel.tscn" id="1_wayus"]
+[ext_resource type="PackedScene" uid="uid://cofb2pmcsxvg7" path="res://Scenes/Entities/playerModel.tscn" id="1_wayus"]
 [ext_resource type="Texture2D" uid="uid://bvqyjnqtp61b3" path="res://addons/kenney_prototype-textures/PNG/Red/texture_12.png" id="2_tk3lx"]
 [ext_resource type="AnimationLibrary" uid="uid://412f4fvdnbjo" path="res://Animations/AnimPack1.res" id="3_uafxh"]
 [ext_resource type="Script" uid="uid://dy1ys2wy6fs8p" path="res://Menu/scenes/menus/main_menu/lamp.gd" id="4_nnj24"]

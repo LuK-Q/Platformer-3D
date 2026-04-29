@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cerfbd1wi12ct"]
 
-[ext_resource type="Script" uid="uid://dod78byraexkg" path="res://Scripts/PlayerMovement.gd" id="1_v0iea"]
-[ext_resource type="PackedScene" uid="uid://cofb2pmcsxvg7" path="res://Scenes/playerModel.tscn" id="2_cvnsp"]
+[ext_resource type="Script" uid="uid://dod78byraexkg" path="res://Scripts/Player/PlayerMovement.gd" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://cofb2pmcsxvg7" path="res://Scenes/Entities/playerModel.tscn" id="2_cvnsp"]
 [ext_resource type="Script" uid="uid://dgpqm2k4ofmat" path="res://Scripts/Statemachine/StateMachine.gd" id="3_6t5aa"]
 [ext_resource type="Script" uid="uid://dkmpnk7j45roe" path="res://Scripts/Statemachine/States/GroundedState.gd" id="4_vgqql"]
 [ext_resource type="Script" uid="uid://d2iue13024vpv" path="res://Scripts/Statemachine/States/AirborneState.gd" id="5_f1ek2"]
