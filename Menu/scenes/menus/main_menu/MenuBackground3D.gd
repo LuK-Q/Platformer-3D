@@ -1,6 +1,5 @@
 extends Node3D
 
-# Referencja do AnimationTree zamiast AnimationPlayer
 @onready var anim_tree = $playerModel/AnimationTree
 
 @export var game_scene_path: String = "res://Scenes/main.tscn"
@@ -8,7 +7,7 @@ extends Node3D
 @export var play_button: Button 
 
 @export var lamp: Node3D 
-@export var dark_timer_seconds: float = 4.0
+@export var dark_timer_seconds: float = 3.0
 @export var ui_fade_duration: float = 2.0
 
 func _ready():
@@ -30,8 +29,6 @@ func _on_play_button_pressed():
 	if lamp:
 		await get_tree().create_timer(dark_timer_seconds).timeout
 		lamp.turn_off()
-		
-	# Bezpośrednie przełączenie warunku na strzałce (upewnij się, że nazwa to "start_game")
-	
+
 	await get_tree().create_timer(dark_timer_seconds).timeout
 	SceneLoader.load_scene(game_scene_path)

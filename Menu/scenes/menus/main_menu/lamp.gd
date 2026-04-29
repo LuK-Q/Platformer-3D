@@ -2,12 +2,10 @@ extends Node3D
 
 @onready var spotlight = $SpotLight3D
 
-# Główne ustawienia wahania
 @export var base_swing_speed: float = 1.5
 @export var speed_variance: float = 0.5 
 @export var swing_angle: float = 5.0 
 
-# Ustawienia światła
 @export var flicker_chance: float = 0.01 
 @export var recovery_speed: float = 2.0 
 @export var fade_out_speed: float = 2.0 
@@ -31,7 +29,6 @@ func _process(delta):
 	rotation_degrees.x = sin(swing_phase) * swing_angle
 	rotation_degrees.z = sin(swing_phase) * swing_angle
 	
-	# 2. Logika światła
 	if is_turning_off:
 		spotlight.light_energy = lerp(spotlight.light_energy, 0.0, delta * fade_out_speed)
 	elif is_on:

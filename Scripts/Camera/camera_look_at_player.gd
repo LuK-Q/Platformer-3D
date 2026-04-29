@@ -19,7 +19,7 @@ func _ready() -> void:
 		var look_target: Vector3 = target.global_position + Vector3.UP * vertical_look_offset
 		look_at(look_target, Vector3.UP)
 		
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("camera_rotate_left"):
 
