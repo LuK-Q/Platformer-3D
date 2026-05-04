@@ -351,8 +351,10 @@ text = ""
 modulate = Color(1, 1, 1, 0)
 
 [node name="MenuButtonsBoxContainer" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer" index="0" unique_id=2017477786]
-offset_top = -68.0
-offset_bottom = 140.0
+offset_left = 128.0
+offset_top = -132.0
+offset_right = 256.0
+offset_bottom = 76.0
 lock = true
 
 [node name="NewGameButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="0" unique_id=2044537792]

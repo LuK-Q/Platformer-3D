@@ -27,8 +27,8 @@ func _on_play_button_pressed():
 		tween.finished.connect(func(): ui_container.hide())
 		
 	if lamp:
-		await get_tree().create_timer(dark_timer_seconds).timeout
+		#await get_tree().create_timer(dark_timer_seconds).timeout
 		lamp.turn_off()
 
-	await get_tree().create_timer(dark_timer_seconds).timeout
+	#await get_tree().create_timer(dark_timer_seconds).timeout
 	SceneLoader.load_scene(game_scene_path)

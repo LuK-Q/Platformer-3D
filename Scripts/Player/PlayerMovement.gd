@@ -46,7 +46,9 @@ extends CharacterBody3D
 
 func _ready() -> void:
 	anim_tree.active = true
-
+	if GameManager.has_checkpoint and GameManager.last_checkpoint_scene == get_tree().current_scene.scene_file_path:
+		global_position = GameManager.last_checkpoint_position
+		
 # Funkcje pomocnicze
 func get_gravity_value() -> float:
 	return ProjectSettings.get_setting("physics/3d/default_gravity")

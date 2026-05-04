@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://6epy24tmhwfq" path="res://Menu/scenes/windows/pause_menu.tscn" id="6_6bp64"]
 [ext_resource type="PackedScene" uid="uid://ctqhoom08o8at" path="res://Scenes/Prototype/Level_Prototype.tscn" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://cyh0d64pfygbl" path="res://addons/maaacks_menus_template/base/nodes/utilities/pause_menu_controller.gd" id="6_344ge"]
+[ext_resource type="Script" uid="uid://dj8moaxh7qg8f" path="res://Scripts/Map/checkpoint.gd" id="7_d1ilt"]
 [ext_resource type="Script" uid="uid://cbe8voogbs0m3" path="res://Scripts/Map/death_zone.gd" id="8_344ge"]
 [ext_resource type="PackedScene" uid="uid://b371xr0c60ph6" path="res://Scenes/Entities/CloudEnemy.tscn" id="9_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://c26oeuvv5itca" path="res://Scenes/Tools/scene_transition.tscn" id="10_hptm8"]
@@ -178,73 +179,94 @@ size = Vector2(2, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ynf5e"]
 size = Vector3(793.3125, 10.191162, 766.1279)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_d1ilt"]
+size = Vector3(2.4941406, 2.8520508, 1)
+
 [node name="Main" type="Node" unique_id=687295441]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=785623424]
 environment = SubResource("Environment_kry3j")
 
-[node name="CameraPivot" type="Marker3D" parent="." unique_id=554526364]
+[node name="Character" type="Node3D" parent="." unique_id=390407161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7990603, 0, 0)
+
+[node name="CameraPivot" type="Marker3D" parent="Character" unique_id=554526364]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 1)
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1916969234 node_paths=PackedStringArray("target")]
+[node name="Camera3D" type="Camera3D" parent="Character/CameraPivot" unique_id=1916969234 node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 0.7780349, 0.62822104, 0, -0.62822104, 0.7780349, 0, -3.281982, 0.65394473)
 fov = 5.0
 script = ExtResource("2_8gbba")
 target = NodePath("../../Player")
 follow_speed = 12.0
 
-[node name="RayCast3D" type="RayCast3D" parent="CameraPivot/Camera3D" unique_id=573435677]
+[node name="RayCast3D" type="RayCast3D" parent="Character/CameraPivot/Camera3D" unique_id=573435677]
 target_position = Vector3(0, 0, 0)
 collision_mask = 8
 hit_from_inside = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraPivot/Camera3D" unique_id=33172072]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Character/CameraPivot/Camera3D" unique_id=33172072]
 material_override = SubResource("ShaderMaterial_21xkr")
 extra_cull_margin = 10000.0
 mesh = SubResource("QuadMesh_344ge")
 
-[node name="CameraDirector" type="Node3D" parent="." unique_id=398816985 node_paths=PackedStringArray("camera", "default_target")]
+[node name="Player" parent="Character" unique_id=379518051 groups=["Player"] instance=ExtResource("1_bo1nx")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5557842, 0.362576, -0.032974362)
+
+[node name="CameraDirector" type="Node3D" parent="Character" unique_id=398816985 node_paths=PackedStringArray("camera", "default_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7990603, 0, 0)
 script = ExtResource("1_8gbba")
 camera = NodePath("../CameraPivot/Camera3D")
 default_target = NodePath("../Player")
 
-[node name="ClickFunction" type="Node3D" parent="CameraDirector" unique_id=992062228]
+[node name="ClickFunction" type="Node3D" parent="Character/CameraDirector" unique_id=992062228]
 script = ExtResource("3_8gbba")
 
-[node name="Player" parent="." unique_id=379518051 groups=["Player"] instance=ExtResource("1_bo1nx")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5557842, 0.362576, -0.032974362)
+[node name="World" type="Node3D" parent="." unique_id=494418628]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=450912862]
-transform = Transform3D(0.5544672, -0.7379637, -0.38467595, 0.66618466, 0.116559595, 0.73662186, -0.4987626, -0.664698, 0.5562486, 0, 20, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World" unique_id=450912862]
+transform = Transform3D(0.5544672, -0.7379638, -0.384676, 0.66618466, 0.11655954, 0.736622, -0.4987626, -0.664698, 0.5562486, 0, 20, 0)
 light_volumetric_fog_energy = 2.248
 shadow_enabled = true
 
-[node name="Environment" parent="." unique_id=642322791 instance=ExtResource("6_21xkr")]
+[node name="Level" parent="World" unique_id=642322791 instance=ExtResource("6_21xkr")]
 transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -45.088478, -28.583458, 0.09250641)
 
-[node name="Node" type="Node" parent="." unique_id=113374578]
-script = ExtResource("6_344ge")
-pause_menu_packed = ExtResource("6_6bp64")
-
-[node name="DeathZone" type="Area3D" parent="." unique_id=522248438]
+[node name="DeathZone" type="Area3D" parent="World" unique_id=522248438]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -27.282171, 0)
 script = ExtResource("8_344ge")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathZone" unique_id=1766269258]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/DeathZone" unique_id=1766269258]
 shape = SubResource("BoxShape3D_ynf5e")
 debug_color = Color(0.8031834, 0.040043965, 5.7756904e-07, 0.41960785)
 
-[node name="CloudEnemy" parent="." unique_id=451898877 instance=ExtResource("9_ynf5e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.115192, 1.3055644, 8.759048)
+[node name="CheckPoint" type="Area3D" parent="World" unique_id=2101849356]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.518223, -9.536743e-07, 1.6261983)
+script = ExtResource("7_d1ilt")
 
-[node name="SceneTransition" parent="." unique_id=177604947 instance=ExtResource("10_hptm8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.191894, -7.140117, 27.201761)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/CheckPoint" unique_id=1617832932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9260254, 0)
+shape = SubResource("BoxShape3D_d1ilt")
+
+[node name="Menu" type="Node" parent="." unique_id=463252045]
+
+[node name="SceneTransition" parent="Menu" unique_id=177604947 instance=ExtResource("10_hptm8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1095605, 18.612743, -0.47758722)
 next_scene_path = "uid://cs3oql77lcjj3"
 
-[node name="CollisionShape3D" parent="SceneTransition" index="0" unique_id=286692356]
+[node name="CollisionShape3D" parent="Menu/SceneTransition" index="0" unique_id=286692356]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9405403, -1.5652704, 1.1041546)
 
-[connection signal="body_entered" from="DeathZone" to="DeathZone" method="_on_body_entered"]
+[node name="PauseMenu" type="Node" parent="Menu" unique_id=113374578]
+script = ExtResource("6_344ge")
+pause_menu_packed = ExtResource("6_6bp64")
 
-[editable path="SceneTransition"]
+[node name="Entities" type="Node" parent="." unique_id=932881986]
+
+[node name="CloudEnemy" parent="Entities" unique_id=451898877 instance=ExtResource("9_ynf5e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.115192, 1.3055644, 8.759048)
+
+[connection signal="body_entered" from="World/DeathZone" to="World/DeathZone" method="_on_body_entered"]
+
+[editable path="Menu/SceneTransition"]

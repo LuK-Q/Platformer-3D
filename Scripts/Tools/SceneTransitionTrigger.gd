@@ -8,6 +8,7 @@ func _ready():
 
 func _on_body_entered(body):
 	if body.is_in_group("Player") and next_scene_path != "":
+		GameManager.clear_checkpoint()
 		set_deferred("monitoring", false)
 		
 		var tween = create_tween()
