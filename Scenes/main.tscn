@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://cbe8voogbs0m3" path="res://Scripts/Map/death_zone.gd" id="8_344ge"]
 [ext_resource type="PackedScene" uid="uid://b371xr0c60ph6" path="res://Scenes/Entities/CloudEnemy.tscn" id="9_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://c26oeuvv5itca" path="res://Scenes/Tools/scene_transition.tscn" id="10_hptm8"]
+[ext_resource type="Script" uid="uid://c57vgj47jhvgd" path="res://Scripts/Menu/TutorialTrigger.gd" id="11_6iyac"]
+[ext_resource type="Texture2D" uid="uid://bqgwnyjnkvp5o" path="res://addons/kenney_prototype-textures/PNG/Light/texture_03.png" id="12_fdnlq"]
 
 [sub_resource type="Environment" id="Environment_kry3j"]
 fog_enabled = true
@@ -182,6 +184,9 @@ size = Vector3(793.3125, 10.191162, 766.1279)
 [sub_resource type="BoxShape3D" id="BoxShape3D_d1ilt"]
 size = Vector3(2.4941406, 2.8520508, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_fdnlq"]
+size = Vector3(3.5698242, 2.2371826, 1)
+
 [node name="Main" type="Node" unique_id=687295441]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=785623424]
@@ -261,6 +266,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9405403, -1.5652704, 1.104
 [node name="PauseMenu" type="Node" parent="Menu" unique_id=113374578]
 script = ExtResource("6_344ge")
 pause_menu_packed = ExtResource("6_6bp64")
+
+[node name="Tutorial_camera" type="Area3D" parent="Menu" unique_id=1489760876]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.566727, 0, 1.1304412)
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("11_6iyac")
+image_to_show = ExtResource("12_fdnlq")
+text_to_show = "Kliknij Q/E aby obrócić kamerę o 90 stopni!"
+required_actions = Array[String](["camera_rotate_right", "camera_rotate_left"])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_camera" unique_id=310695500]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2849121, 0.6185913, 0)
+shape = SubResource("BoxShape3D_fdnlq")
 
 [node name="Entities" type="Node" parent="." unique_id=932881986]
 
