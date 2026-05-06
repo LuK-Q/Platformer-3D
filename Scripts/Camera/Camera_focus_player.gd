@@ -74,3 +74,11 @@ func _fade_object(obj: GeometryInstance3D, target_alpha: float) -> void:
 	if obj == null: return
 	var tween = get_tree().create_tween()
 	tween.tween_property(obj, "transparency", target_alpha, 0.3)
+	
+func force_set_offset(new_offset: Vector3) -> void:
+	target_offset = new_offset
+	offset = new_offset
+	if target:
+		var look_target: Vector3 = target.global_position + Vector3.UP * vertical_look_offset
+		global_position = look_target + new_offset
+		look_at(look_target, Vector3.UP)

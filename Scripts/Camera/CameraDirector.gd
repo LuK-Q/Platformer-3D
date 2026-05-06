@@ -14,9 +14,16 @@ func _ready() -> void:
 		push_error("CameraDirector: No camera assigned.")
 		return
 
+	if GameManager.has_checkpoint:
+		camera.offset = GameManager.last_camera_offset
+		camera.target_offset = GameManager.last_camera_offset
+	else:
+		camera.offset = default_offset
+		if "target_offset" in camera:
+			camera.target_offset = default_offset
+
 	if default_target:
 		camera.target = default_target
-	camera.offset = default_offset
 
 
 func focus_on(target: Node3D, offset: Vector3 = default_offset, duration: float = 1.5, follow_speed: float = 2.0, rotation_speed: float = 1.5) -> void:
@@ -63,3 +70,11 @@ func _pop_state() -> void:
 	var state: Dictionary = _stack.pop_back()
 	camera.target = state["target"]
 	camera.offset = state["offset"]
+
+func apply_checkpoint_rotation() -> void:
+	if GameManager.has_checkpoint and camera:
+		if camera.has_method("force_set_offset"):
+			camera.force_set_offset(GameManager.last_camera_offset)
+		else:
+			camera.target_offset = GameManager.last_camera_offset
+			camera.offset = GameManager.last_camera_offset

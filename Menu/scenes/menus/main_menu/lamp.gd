@@ -24,7 +24,7 @@ func _process(delta):
 	time_passed += delta
 	var current_speed = base_swing_speed + sin(time_passed * 0.4) * speed_variance
 	
-	swing_phase += delta * current_speed
+	swing_phase += delta * current_speed * 0
 	
 	rotation_degrees.x = sin(swing_phase) * swing_angle
 	rotation_degrees.z = sin(swing_phase) * swing_angle

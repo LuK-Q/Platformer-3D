@@ -2,17 +2,16 @@
 
 [ext_resource type="Script" uid="uid://db1eqq403h8ij" path="res://Scripts/Camera/CameraDirector.gd" id="1_8gbba"]
 [ext_resource type="PackedScene" uid="uid://cerfbd1wi12ct" path="res://Scenes/Entities/player.tscn" id="1_bo1nx"]
-[ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://Scripts/Camera/camera_look_at_player.gd" id="2_8gbba"]
-[ext_resource type="Script" uid="uid://0jskvd87xvd8" path="res://Scripts/Camera/click_to_focus_camera.gd" id="3_8gbba"]
+[ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://Scripts/Camera/Camera_focus_player.gd" id="2_8gbba"]
+[ext_resource type="Script" uid="uid://0jskvd87xvd8" path="res://Scripts/Camera/(deprecated) click_to_focus_camera.gd" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://6epy24tmhwfq" path="res://Menu/scenes/windows/pause_menu.tscn" id="6_6bp64"]
 [ext_resource type="PackedScene" uid="uid://ctqhoom08o8at" path="res://Scenes/Prototype/Level_Prototype.tscn" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://cyh0d64pfygbl" path="res://addons/maaacks_menus_template/base/nodes/utilities/pause_menu_controller.gd" id="6_344ge"]
-[ext_resource type="Script" uid="uid://dj8moaxh7qg8f" path="res://Scripts/Map/checkpoint.gd" id="7_d1ilt"]
-[ext_resource type="Script" uid="uid://cbe8voogbs0m3" path="res://Scripts/Map/death_zone.gd" id="8_344ge"]
+[ext_resource type="Script" uid="uid://dj8moaxh7qg8f" path="res://Scripts/Map/CheckPoint.gd" id="7_d1ilt"]
+[ext_resource type="Script" uid="uid://cbe8voogbs0m3" path="res://Scripts/Map/DeathZone.gd" id="8_344ge"]
 [ext_resource type="PackedScene" uid="uid://b371xr0c60ph6" path="res://Scenes/Entities/CloudEnemy.tscn" id="9_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://c26oeuvv5itca" path="res://Scenes/Tools/scene_transition.tscn" id="10_hptm8"]
 [ext_resource type="Script" uid="uid://c57vgj47jhvgd" path="res://Scripts/Menu/TutorialTrigger.gd" id="11_6iyac"]
-[ext_resource type="Texture2D" uid="uid://bqgwnyjnkvp5o" path="res://addons/kenney_prototype-textures/PNG/Light/texture_03.png" id="12_fdnlq"]
 
 [sub_resource type="Environment" id="Environment_kry3j"]
 fog_enabled = true
@@ -272,7 +271,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.566727, 0, 1.1304412)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("11_6iyac")
-image_to_show = ExtResource("12_fdnlq")
 text_to_show = "Kliknij Q/E aby obrócić kamerę o 90 stopni!"
 required_actions = Array[String](["camera_rotate_right", "camera_rotate_left"])
 

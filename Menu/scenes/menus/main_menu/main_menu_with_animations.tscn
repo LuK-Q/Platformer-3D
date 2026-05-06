@@ -351,16 +351,19 @@ text = ""
 modulate = Color(1, 1, 1, 0)
 
 [node name="MenuButtonsBoxContainer" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer" index="0" unique_id=2017477786]
-offset_left = 128.0
+offset_left = 256.0
 offset_top = -132.0
-offset_right = 256.0
+offset_right = 384.0
 offset_bottom = 76.0
 lock = true
 
 [node name="NewGameButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="0" unique_id=2044537792]
 text = "Play"
 
-[node name="VersionContainer" parent="VersionMargin" parent_id_path=PackedInt32Array(1732528471) index="0" unique_id=1603969262]
+[node name="VersionMargin" parent="." index="7" unique_id=1732528471]
+visible = false
+
+[node name="VersionContainer" parent="VersionMargin" index="0" unique_id=1603969262]
 modulate = Color(1, 1, 1, 0)
 
 [node name="ExitConfirmation" parent="." index="8" unique_id=912502155]
