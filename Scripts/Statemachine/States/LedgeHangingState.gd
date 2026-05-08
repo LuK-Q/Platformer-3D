@@ -60,7 +60,7 @@ func physics_update(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("move_back"):
 		is_jumping_180 = true
-		jump_timer = 0.0 # Liczymy od zera w górę
+		jump_timer = 0.0
 		
 		start_rotation = player.pivot.rotation.y
 		target_rotation = atan2(wall_normal.x, wall_normal.z)
@@ -69,10 +69,13 @@ func physics_update(delta: float) -> void:
 		return
 		
 	if Input.is_action_just_pressed("jump") and Input.is_action_pressed("move_forward"):
-		var climb_state = state_machine.get_node("LedgeClimbing")
-		if climb_state:
-			climb_state.ledge_y = ledge_height
-		state_machine.transition_to("LedgeClimbing")
+		if can_climb_to_ledge():
+			var climb_state = state_machine.get_node("LedgeClimbing")
+			if climb_state:
+				climb_state.ledge_y = ledge_height
+			state_machine.transition_to("LedgeClimbing")
+		else:
+			print("Nie można się wspiąć - przeszkoda nad krawędzią")
 		return
 
 	handle_shimmy_movement(delta)
@@ -131,6 +134,16 @@ func check_ledge_continuity(direction: Vector3) -> bool:
 	height_node.global_position = orig_height_pos
 	
 	return is_ledge_valid
+
+func can_climb_to_ledge() -> bool:
+	var space_cast = player.get_node_or_null("Pivot/ClimbSpaceCast")
+	
+	if space_cast:
+		space_cast.force_shapecast_update()
+		return not space_cast.is_colliding()
+	
+	push_warning("ClimbSpaceCast nie został znaleziony w Pivot!")
+	return true
 
 func exit() -> void:
 	player.anim_tree.set("parameters/conditions/is_hanging", false)

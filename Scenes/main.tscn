@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://db1eqq403h8ij" path="res://Scripts/Camera/CameraDirector.gd" id="1_8gbba"]
 [ext_resource type="PackedScene" uid="uid://cerfbd1wi12ct" path="res://Scenes/Entities/player.tscn" id="1_bo1nx"]
 [ext_resource type="Script" uid="uid://4uih0lqffka8" path="res://Scripts/Camera/Camera_focus_player.gd" id="2_8gbba"]
-[ext_resource type="Script" uid="uid://0jskvd87xvd8" path="res://Scripts/Camera/(deprecated) click_to_focus_camera.gd" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://6epy24tmhwfq" path="res://Menu/scenes/windows/pause_menu.tscn" id="6_6bp64"]
 [ext_resource type="PackedScene" uid="uid://ctqhoom08o8at" path="res://Scenes/Prototype/Level_Prototype.tscn" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://cyh0d64pfygbl" path="res://addons/maaacks_menus_template/base/nodes/utilities/pause_menu_controller.gd" id="6_344ge"]
@@ -216,7 +215,7 @@ mesh = SubResource("QuadMesh_344ge")
 
 [node name="Player" parent="Character" unique_id=379518051 groups=["Player"] instance=ExtResource("1_bo1nx")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5557842, 0.362576, -0.032974362)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.52484, 0.362576, -44.852768)
 
 [node name="CameraDirector" type="Node3D" parent="Character" unique_id=398816985 node_paths=PackedStringArray("camera", "default_target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7990603, 0, 0)
@@ -225,7 +224,6 @@ camera = NodePath("../CameraPivot/Camera3D")
 default_target = NodePath("../Player")
 
 [node name="ClickFunction" type="Node3D" parent="Character/CameraDirector" unique_id=992062228]
-script = ExtResource("3_8gbba")
 
 [node name="World" type="Node3D" parent="." unique_id=494418628]
 

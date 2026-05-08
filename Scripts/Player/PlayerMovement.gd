@@ -36,6 +36,7 @@ extends CharacterBody3D
 @onready var HighWallRay: RayCast3D = $Pivot/HighWallRay
 @onready var WallRayRight: RayCast3D = $Pivot/WallRayRight
 @onready var WallRayLeft: RayCast3D = $Pivot/WallRayLeft
+@onready var ledge_climb_cast: ShapeCast3D = $Pivot/ClimbSpaceCast
 
 @onready var lower_collision: CollisionShape3D = $LowerCollision
 @onready var upper_collision: CollisionShape3D = $UpperCollision

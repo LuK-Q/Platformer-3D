@@ -92,12 +92,28 @@ collision_mask = 3
 size = Vector3(0.8183594, 0.6357422, 0.24194336)
 
 [node name="Duplicate base6" type="CSGBox3D" parent="New" unique_id=1047457591]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.36493, 9.411133, -109.02051)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.517464, 9.411133, -109.02051)
 material_override = SubResource("StandardMaterial3D_ac1wj")
 use_collision = true
 collision_layer = 4
 collision_mask = 3
-size = Vector3(10.760742, 17.822266, 11.931641)
+size = Vector3(17.065796, 17.822266, 11.931641)
+
+[node name="Duplicate base8" type="CSGBox3D" parent="New" unique_id=280274337]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.428043, 11.496826, -109.02051)
+material_override = SubResource("StandardMaterial3D_ac1wj")
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(22.826965, 21.993652, 17.060547)
+
+[node name="Duplicate base9" type="CSGBox3D" parent="New" unique_id=1080468463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.49268, 14.680969, -107.78613)
+material_override = SubResource("StandardMaterial3D_ac1wj")
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(16.648682, 28.361938, 14.591797)
 
 [node name="Duplicate base3" type="CSGBox3D" parent="New" unique_id=809423707]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.062122, 33.75144, -73.58423)
