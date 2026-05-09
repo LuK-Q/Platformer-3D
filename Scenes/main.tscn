@@ -180,10 +180,25 @@ size = Vector2(2, 2)
 size = Vector3(793.3125, 10.191162, 766.1279)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d1ilt"]
-size = Vector3(2.4941406, 2.8520508, 1)
+size = Vector3(2.8919067, 2.2023926, 5.725342)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fdnlq"]
-size = Vector3(3.5698242, 2.2371826, 1)
+size = Vector3(3.7501678, 1.4495697, 1.329834)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6iyac"]
+size = Vector3(1, 2.694336, 2.359375)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jkdf5"]
+size = Vector3(2.3747559, 1, 5.296631)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wsu2k"]
+size = Vector3(6.3828125, 0.1796875, 6.109375)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k12tt"]
+size = Vector3(11.765625, 1, 2.9960938)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h1bgf"]
+size = Vector3(4.600586, 0.22241211, 4.937744)
 
 [node name="Main" type="Node" unique_id=687295441]
 
@@ -215,7 +230,7 @@ mesh = SubResource("QuadMesh_344ge")
 
 [node name="Player" parent="Character" unique_id=379518051 groups=["Player"] instance=ExtResource("1_bo1nx")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.52484, 0.362576, -44.852768)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.638443, 2.0135098, -63.499695)
 
 [node name="CameraDirector" type="Node3D" parent="Character" unique_id=398816985 node_paths=PackedStringArray("camera", "default_target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7990603, 0, 0)
@@ -251,35 +266,118 @@ script = ExtResource("7_d1ilt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9260254, 0)
 shape = SubResource("BoxShape3D_d1ilt")
 
+[node name="CheckPoint2" type="Area3D" parent="World" unique_id=925152843]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.84271, -10.543818, -43.12792)
+script = ExtResource("7_d1ilt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/CheckPoint2" unique_id=938237329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0375977, 1.439331, -2.2165527)
+shape = SubResource("BoxShape3D_d1ilt")
+
+[node name="CheckPoint3" type="Area3D" parent="World" unique_id=2101073232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.733517, -2.2853124, -68.23923)
+script = ExtResource("7_d1ilt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/CheckPoint3" unique_id=90127450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.061107635, 1.439331, -0.6760559)
+shape = SubResource("BoxShape3D_d1ilt")
+
+[node name="CheckPoint4" type="Area3D" parent="World" unique_id=1082179456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.41338, 1.8682611, -40.0468)
+script = ExtResource("7_d1ilt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/CheckPoint4" unique_id=1561004561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.061107635, 1.439331, -0.6760559)
+shape = SubResource("BoxShape3D_d1ilt")
+
 [node name="Menu" type="Node" parent="." unique_id=463252045]
 
 [node name="SceneTransition" parent="Menu" unique_id=177604947 instance=ExtResource("10_hptm8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1095605, 18.612743, -0.47758722)
-next_scene_path = "uid://cs3oql77lcjj3"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.721455, 4.216547, -67.15204)
+next_scene_path = "uid://cpvqoj3mgcdcl"
 
 [node name="CollisionShape3D" parent="Menu/SceneTransition" index="0" unique_id=286692356]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9405403, -1.5652704, 1.1041546)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9405403, -1.5874872, 0.42373657)
 
 [node name="PauseMenu" type="Node" parent="Menu" unique_id=113374578]
 script = ExtResource("6_344ge")
 pause_menu_packed = ExtResource("6_6bp64")
 
 [node name="Tutorial_camera" type="Area3D" parent="Menu" unique_id=1489760876]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.566727, 0, 1.1304412)
-collision_layer = 4
-collision_mask = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.566727, 0.4351623, 1.1304412)
+collision_layer = 0
 script = ExtResource("11_6iyac")
-text_to_show = "Kliknij Q/E aby obrócić kamerę o 90 stopni!"
+text_to_show = "Press Q/E to rotate your camera angle"
 required_actions = Array[String](["camera_rotate_right", "camera_rotate_left"])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_camera" unique_id=310695500]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2849121, 0.6185913, 0)
 shape = SubResource("BoxShape3D_fdnlq")
+
+[node name="Tutorial_movement" type="Area3D" parent="Menu" unique_id=1635901097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.486738, 0, 1.1304412)
+collision_layer = 0
+script = ExtResource("11_6iyac")
+text_to_show = "SHIFT -> sprint
+CTRL -> crouch
+SHIFT + CTRL -> slide"
+required_actions = Array[String](["crouch", "sprint"])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_movement" unique_id=601224409]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84716797, 0)
+shape = SubResource("BoxShape3D_6iyac")
+
+[node name="Tutorial_falling" type="Area3D" parent="Menu" unique_id=777275408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.980206, -1.7665612, -12.381949)
+collision_layer = 0
+script = ExtResource("11_6iyac")
+text_to_show = "Pressing CTRL while falling while allow you to brace your fall with a roll"
+required_actions = Array[String](["crouch"])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_falling" unique_id=99316230]
+shape = SubResource("BoxShape3D_jkdf5")
+
+[node name="Tutorial_wallrun" type="Area3D" parent="Menu" unique_id=257971743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.10703, -9.656301, -29.875053)
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("11_6iyac")
+text_to_show = "Sprint jumping into a wall allows you to run along it."
+required_actions = Array[String](["jump", "sprint"])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_wallrun" unique_id=508263907]
+shape = SubResource("BoxShape3D_wsu2k")
+
+[node name="Tutorial_Ledges" type="Area3D" parent="Menu" unique_id=1617606694]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.73259, -9.993484, -46.537117)
+collision_layer = 0
+script = ExtResource("11_6iyac")
+text_to_show = "Wall running or falling onto a ledge allows you to grab and move along it.
+
+Pressing [Forwards] + [Jump] -> climbs up the ledge
+Pressing [Backwards] + [Jump] -> jumps off of the ledge
+Pressing [Crouch] -> lets go of the ledge"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_Ledges" unique_id=1721323090]
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Tutorial_Vaulting" type="Area3D" parent="Menu" unique_id=1306179223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.270004, -1.7626672, -68.84698)
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("11_6iyac")
+text_to_show = "Pressing [Jump] in front of a small obstacle allows you to vault over it
+"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_Vaulting" unique_id=1851972503]
+shape = SubResource("BoxShape3D_h1bgf")
 
 [node name="Entities" type="Node" parent="." unique_id=932881986]
 
 [node name="CloudEnemy" parent="Entities" unique_id=451898877 instance=ExtResource("9_ynf5e")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.115192, 1.3055644, 8.759048)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.76844, 7.0559673, -57.47641)
+
+[node name="CloudEnemy2" parent="Entities" unique_id=683583768 instance=ExtResource("9_ynf5e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.489258, 8.783465, -50.29183)
 
 [connection signal="body_entered" from="World/DeathZone" to="World/DeathZone" method="_on_body_entered"]
 

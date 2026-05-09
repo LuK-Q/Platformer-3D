@@ -16,8 +16,8 @@ grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="Control" unique_id=1248260700]
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_right = 7014.0
+offset_bottom = 4559.0
 color = Color(0, 0, 0, 0.47058824)
 
 [node name="TutorialImage" type="TextureRect" parent="Control" unique_id=145270103]

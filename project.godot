@@ -33,6 +33,11 @@ ScreenFader="*uid://c2m3cahqtkn1u"
 GameManager="*uid://cwg7kbqmgxi50"
 TutorialSystem="*uid://plqx7byjstmo"
 
+[display]
+
+window/size/mode=3
+window/size/borderless=true
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/maaacks_menus_template/plugin.cfg")

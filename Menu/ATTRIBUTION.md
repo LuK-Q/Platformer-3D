@@ -1,22 +1,8 @@
 # Attribution
-## Collaborators
+## Autor
+#### Łukasz Młynek
 
-### Role
-Person 1  
-Person 2  
-[Person w/ Link]()  
 
-## Sourced
-### Asset Type
-#### Use Case
-Author: [Name]()  
-Source: [Domain : webpage.html]()  
-License: [License]()
-
-#### Godot Engine Logo
-Author: Andrea Calabró  
-Source: [godotengine.org : press](https://godotengine.org/press/)  
-License: [CC BY 4.0 International](https://github.com/godotengine/godot/blob/master/LOGO_LICENSE.txt) 
 
 ## Tools
 #### Godot
@@ -24,6 +10,12 @@ License: [CC BY 4.0 International](https://github.com/godotengine/godot/blob/mas
 Author: [Juan Linietsky, Ariel Manzur, and contributors](https://godotengine.org/contact)  
 Source: [godotengine.org](https://godotengine.org/)  
 License: [MIT License](https://github.com/godotengine/godot/blob/master/LICENSE.txt) 
+
+#### Blender
+![Blender Logo](/Menu/assets/blender_logo_kit/square/blender_icon_1024x1024.png)  
+Author: [Blender Foundation and contributors](https://www.blender.org/about/credits/)
+Source: [blender.org](https://www.blender.org/)
+License: [GNU GPL License](https://www.blender.org/about/license/)
 
 #### Godot Menus Template
 ![Maaack Plugin Icon](/Menu/assets/plugin_logo/logo.png)  
@@ -36,3 +28,11 @@ License: [MIT License](LICENSE.txt)
 Author: [Linus Torvalds](https://github.com/torvalds)  
 Source: [git-scm.com](https://git-scm.com/downloads)  
 License: [GNU General Public License version 2](https://opensource.org/licenses/GPL-2.0)
+
+
+
+## Character Animations
+#### Mixamo
+Author: [Adobe and contributors](https://www.adobe.com/about-adobe.html)
+Source: [mixamo.com](https://www.mixamo.com/)
+License: [Adobe Terms of Use](https://www.adobe.com/legal/terms.html)
