@@ -6,7 +6,7 @@ extends Node3D
 @export var speed_variance: float = 0.5 
 @export var swing_angle: float = 5.0 
 
-@export var flicker_chance: float = 0.01 
+@export var flicker_chance: float = 0.007 
 @export var recovery_speed: float = 2.0 
 @export var fade_out_speed: float = 2.0 
 

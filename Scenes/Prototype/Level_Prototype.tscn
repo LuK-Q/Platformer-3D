@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ctqhoom08o8at"]
 
+[ext_resource type="Texture2D" uid="uid://cmosuaogq1i7r" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_04.png" id="1_h6hhc"]
 [ext_resource type="Texture2D" uid="uid://1ui6diu2vh7e" path="res://Blender models/Placeholders/Movement test area_texture_02.png" id="2_7suqw"]
 [ext_resource type="Texture2D" uid="uid://ddic38c7pmbhk" path="res://addons/kenney_prototype-textures/PNG/Light/texture_07.png" id="2_8mgbh"]
 [ext_resource type="Texture2D" uid="uid://ccg28bc10jrr7" path="res://addons/kenney_prototype-textures/PNG/Light/texture_06.png" id="4_la3tm"]
@@ -7,6 +8,9 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ac1wj"]
 albedo_texture = ExtResource("2_8mgbh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6hhc"]
+albedo_texture = ExtResource("1_h6hhc")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g7ecf"]
 albedo_texture = ExtResource("5_na1re")
@@ -39,6 +43,25 @@ albedo_texture = ExtResource("2_8mgbh")
 size = Vector3(9.069855, 1, 7.6864624)
 
 [node name="Node3D" type="Node3D" unique_id=1685484094]
+
+[node name="Testing ground" type="Node3D" parent="." unique_id=769708766]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7.3717347e-06, 0, -84.322815)
+
+[node name="Duplicate base18" type="CSGBox3D" parent="Testing ground" unique_id=776635582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.77234, 19.548653, -170.97678)
+material_override = SubResource("StandardMaterial3D_ac1wj")
+use_collision = true
+collision_layer = 4
+collision_mask = 3
+size = Vector3(18.9, 38.09729, 15.400001)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Testing ground" unique_id=800471190]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.63622, 40.199936, -170.78055)
+material_override = SubResource("StandardMaterial3D_h6hhc")
+use_collision = true
+collision_layer = 12
+collision_mask = 3
+size = Vector3(2.5722656, 7.2634277, 3.0412598)
 
 [node name="New" type="Node3D" parent="." unique_id=1669548289]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7.3717347e-06, 0, -84.322815)
@@ -160,12 +183,12 @@ transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0.40
 radius = 0.38427734
 
 [node name="Duplicate base" type="CSGBox3D" parent="New" unique_id=205240772]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.77234, 14.474373, -170.97678)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.382965, 19.548653, -20.208374)
 material_override = SubResource("StandardMaterial3D_ac1wj")
 use_collision = true
 collision_layer = 4
 collision_mask = 3
-size = Vector3(18.9, 27.94873, 15.400001)
+size = Vector3(18.9, 38.09729, 15.400001)
 
 [node name="Duplicate base11" type="CSGBox3D" parent="New" unique_id=327771229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.677917, 21.370365, -83.718956)
@@ -326,7 +349,7 @@ collision_mask = 3
 size = Vector3(16.648682, 25.806946, 17.05127)
 
 [node name="Duplicate base4" type="CSGBox3D" parent="New/Duplicate base10" unique_id=1157925121]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76783, 13.477659, -2.6900063)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76783, 13.477659, -5.3282814)
 material_override = SubResource("StandardMaterial3D_ac1wj")
 use_collision = true
 collision_layer = 4
@@ -470,20 +493,20 @@ collision_mask = 3
 size = Vector3(1.0999877, 0.6467285, 0.5878906)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="New/Duplicate base10" unique_id=1347202186]
-transform = Transform3D(-4.371139e-08, 2.06693, 0, -1, -9.034838e-08, 0, 0, 0, 1, 3.4994583, 15.0177, 1.1642265)
+transform = Transform3D(-4.371139e-08, 2.06693, 0, -1, -9.034838e-08, 0, 0, 0, 1, 3.4994583, 15.0177, -0.7724247)
 radius = 1.1567383
 height = 6.148926
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="New/Duplicate base10" unique_id=926507330]
-transform = Transform3D(1, 0, 0, 0, 0.9607261, 0, 0, 0, 1, 9.845833, 14.846458, 1.1637897)
+transform = Transform3D(1, 0, 0, 0, 0.9607261, 0, 0, 0, 1, 9.845833, 14.846458, -0.7728615)
 radius = 1.3158876
 
 [node name="CSGSphere3D2" type="CSGSphere3D" parent="New/Duplicate base10" unique_id=1960665741]
-transform = Transform3D(1, 0, 0, 0, 0.9607261, 0, 0, 0, 1, 9.884705, 1.6516113, 1.1637897)
+transform = Transform3D(1, 0, 0, 0, 0.9607261, 0, 0, 0, 1, 9.884705, 1.6516113, -0.7728615)
 radius = 1.332643
 
 [node name="CSGCylinder3D2" type="CSGCylinder3D" parent="New/Duplicate base10" unique_id=1003752282]
-transform = Transform3D(1, 0, 0, 0, 2.06693, 0, 0, 0, 1, 9.845833, 8.550825, 1.1637897)
+transform = Transform3D(1, 0, 0, 0, 2.06693, 0, 0, 0, 1, 9.845833, 8.550825, -0.7728615)
 radius = 1.1567383
 height = 6.195801
 

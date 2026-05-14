@@ -14,12 +14,14 @@ radius = 5.284561
 radius = 1.5
 
 [node name="CloudEnemy" type="CharacterBody3D" unique_id=451898877]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_5saei")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=212139880]
 use_collision = true
 collision_layer = 2
-collision_mask = 7
+collision_mask = 5
 material = SubResource("StandardMaterial3D_tm85o")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1795911746]
@@ -29,11 +31,13 @@ shape = SubResource("SphereShape3D_gnutd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="VisionArea" unique_id=640102552]
 shape = SubResource("SphereShape3D_3tamg")
+debug_color = Color(0, 1, 0.78431374, 1)
 
 [node name="CatchArea" type="Area3D" parent="." unique_id=1863993912]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CatchArea" unique_id=2042934614]
 shape = SubResource("SphereShape3D_aj333")
+debug_color = Color(1, 0, 0, 1)
 
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]

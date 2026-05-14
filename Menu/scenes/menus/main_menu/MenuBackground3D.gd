@@ -11,7 +11,7 @@ extends Node3D
 @export var dark_timer_seconds: float = 3.0
 @export var ui_fade_duration: float = 2.0
 
-@export var shake_intensity: float = 0.015
+@export var shake_intensity: float = 0.01
 @export var shake_speed: float = 25.0
 var base_camera_pos: Vector3
 var shake_time: float = 0.0
