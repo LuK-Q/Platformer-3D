@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://ctqhoom08o8at"]
 
-[ext_resource type="Texture2D" uid="uid://cmosuaogq1i7r" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_04.png" id="1_h6hhc"]
 [ext_resource type="Texture2D" uid="uid://1ui6diu2vh7e" path="res://Blender models/Placeholders/Movement test area_texture_02.png" id="2_7suqw"]
 [ext_resource type="Texture2D" uid="uid://ddic38c7pmbhk" path="res://addons/kenney_prototype-textures/PNG/Light/texture_07.png" id="2_8mgbh"]
 [ext_resource type="Texture2D" uid="uid://ccg28bc10jrr7" path="res://addons/kenney_prototype-textures/PNG/Light/texture_06.png" id="4_la3tm"]
@@ -8,9 +7,6 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ac1wj"]
 albedo_texture = ExtResource("2_8mgbh")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h6hhc"]
-albedo_texture = ExtResource("1_h6hhc")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g7ecf"]
 albedo_texture = ExtResource("5_na1re")
@@ -40,28 +36,12 @@ albedo_texture = ExtResource("2_8mgbh")
 albedo_texture = ExtResource("2_8mgbh")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l40w4"]
-size = Vector3(9.069855, 1, 7.6864624)
+size = Vector3(9.069855, 5.3735733, 13.369225)
 
 [node name="Node3D" type="Node3D" unique_id=1685484094]
 
 [node name="Testing ground" type="Node3D" parent="." unique_id=769708766]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7.3717347e-06, 0, -84.322815)
-
-[node name="Duplicate base18" type="CSGBox3D" parent="Testing ground" unique_id=776635582]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.77234, 19.548653, -170.97678)
-material_override = SubResource("StandardMaterial3D_ac1wj")
-use_collision = true
-collision_layer = 4
-collision_mask = 3
-size = Vector3(18.9, 38.09729, 15.400001)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Testing ground" unique_id=800471190]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.63622, 40.199936, -170.78055)
-material_override = SubResource("StandardMaterial3D_h6hhc")
-use_collision = true
-collision_layer = 12
-collision_mask = 3
-size = Vector3(2.5722656, 7.2634277, 3.0412598)
 
 [node name="New" type="Node3D" parent="." unique_id=1669548289]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7.3717347e-06, 0, -84.322815)
@@ -207,12 +187,12 @@ collision_mask = 3
 size = Vector3(6.857251, 46.065544, 8.166309)
 
 [node name="Duplicate base17" type="CSGBox3D" parent="New" unique_id=1825342772]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.389095, 39.351925, -80.10211)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.389095, 39.762016, -80.10211)
 material_override = SubResource("StandardMaterial3D_ac1wj")
 use_collision = true
 collision_layer = 12
 collision_mask = 3
-size = Vector3(15.262207, 3.560295, 3.2209473)
+size = Vector3(15.262207, 2.7401085, 3.2209473)
 
 [node name="Duplicate base16" type="CSGBox3D" parent="New" unique_id=1097944115]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.950195, 17.410221, -83.72973)
@@ -221,6 +201,14 @@ use_collision = true
 collision_layer = 12
 collision_mask = 3
 size = Vector3(11.926062, 33.820427, 15.421534)
+
+[node name="Duplicate base18" type="CSGBox3D" parent="New" unique_id=1555093808]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.639633, 10.593359, -83.67065)
+material_override = SubResource("StandardMaterial3D_ac1wj")
+use_collision = true
+collision_layer = 12
+collision_mask = 3
+size = Vector3(34.91959, 20.186703, 15.539709)
 
 [node name="Duplicate base12" type="CSGBox3D" parent="New" unique_id=523247151]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.347046, 25.89083, -92.28472)
@@ -772,6 +760,30 @@ material_override = SubResource("StandardMaterial3D_wjnhj")
 calculate_tangents = false
 size = Vector3(2.1000001, 2, 0.1)
 
+[node name="10" type="CSGBox3D" parent="New/Doors" unique_id=1403454397]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.218987, 31.138065, -75.987686)
+material_override = SubResource("StandardMaterial3D_wjnhj")
+calculate_tangents = false
+size = Vector3(2.1000001, 2, 0.1)
+
+[node name="8" type="CSGBox3D" parent="New/Doors" unique_id=2012810948]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 64.80396, 27.004473, -91.59217)
+material_override = SubResource("StandardMaterial3D_wjnhj")
+calculate_tangents = false
+size = Vector3(2.1000001, 2, 0.1)
+
+[node name="9" type="CSGBox3D" parent="New/Doors" unique_id=1507392245]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 48.025917, 35.465378, -82.73342)
+material_override = SubResource("StandardMaterial3D_wjnhj")
+calculate_tangents = false
+size = Vector3(2.1000001, 2, 0.1)
+
+[node name="7" type="CSGBox3D" parent="New/Doors" unique_id=73546589]
+transform = Transform3D(4.4703484e-08, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, 4.4703484e-08, 48.99176, 19.34632, -108.876976)
+material_override = SubResource("StandardMaterial3D_wjnhj")
+calculate_tangents = false
+size = Vector3(2.1000001, 2, 0.1)
+
 [node name="Background" type="CSGCombiner3D" parent="New" unique_id=1085704854]
 use_collision = true
 collision_layer = 8
@@ -876,7 +888,7 @@ collision_layer = 4
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="New/Pipes/Area3D" unique_id=1190921474]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0349274, 0, 2.5088825)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.034927, 3.513712, 2.9706357)
 shape = SubResource("BoxShape3D_l40w4")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="New/Pipes" unique_id=1056612208]

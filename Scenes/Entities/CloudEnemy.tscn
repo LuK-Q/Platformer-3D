@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://b371xr0c60ph6"]
 
 [ext_resource type="Script" uid="uid://m0sw6lojp1dr" path="res://Scripts/NPC/CloudEnemy.gd" id="1_5saei"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tm85o"]
-albedo_color = Color(0, 0, 0, 0.34901962)
+[ext_resource type="Script" uid="uid://duqt8y8w8lgex" path="res://Scenes/Entities/flicker.gd" id="2_k0afk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gnutd"]
 
@@ -11,18 +9,25 @@ albedo_color = Color(0, 0, 0, 0.34901962)
 radius = 5.284561
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_aj333"]
-radius = 1.5
+radius = 0.9423217
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k0afk"]
+noise_type = 0
+fractal_type = 2
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_qy30g"]
+noise = SubResource("FastNoiseLite_k0afk")
+
+[sub_resource type="FogMaterial" id="FogMaterial_k0afk"]
+density = 0.3
+emission = Color(0.41387567, 4.2716042e-07, 0.06451424, 1)
+edge_fade = 1.1712675
+density_texture = SubResource("NoiseTexture3D_qy30g")
 
 [node name="CloudEnemy" type="CharacterBody3D" unique_id=451898877]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_5saei")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=212139880]
-use_collision = true
-collision_layer = 2
-collision_mask = 5
-material = SubResource("StandardMaterial3D_tm85o")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1795911746]
 shape = SubResource("SphereShape3D_gnutd")
@@ -38,6 +43,17 @@ debug_color = Color(0, 1, 0.78431374, 1)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CatchArea" unique_id=2042934614]
 shape = SubResource("SphereShape3D_aj333")
 debug_color = Color(1, 0, 0, 1)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1976785342]
+light_energy = 2.0
+light_negative = true
+omni_range = 5.279178
+script = ExtResource("2_k0afk")
+
+[node name="FogVolume" type="FogVolume" parent="." unique_id=243514122]
+size = Vector3(7.6171875, 6.3825684, 7.4560547)
+shape = 0
+material = SubResource("FogMaterial_k0afk")
 
 [connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]
 [connection signal="body_exited" from="VisionArea" to="." method="_on_vision_area_body_exited"]
