@@ -203,12 +203,12 @@ collision_mask = 3
 size = Vector3(11.926062, 33.820427, 15.421534)
 
 [node name="Duplicate base18" type="CSGBox3D" parent="New" unique_id=1555093808]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.639633, 10.593359, -83.67065)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.639633, 7.0000076, -83.67065)
 material_override = SubResource("StandardMaterial3D_ac1wj")
 use_collision = true
 collision_layer = 12
 collision_mask = 3
-size = Vector3(34.91959, 20.186703, 15.539709)
+size = Vector3(34.91959, 13, 15.539709)
 
 [node name="Duplicate base12" type="CSGBox3D" parent="New" unique_id=523247151]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.347046, 25.89083, -92.28472)

@@ -35,6 +35,7 @@ TutorialSystem="*uid://plqx7byjstmo"
 
 [display]
 
+window/size/mode=4
 window/size/borderless=true
 
 [editor_plugins]

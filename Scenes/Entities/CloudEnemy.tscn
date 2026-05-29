@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b371xr0c60ph6"]
 
 [ext_resource type="Script" uid="uid://m0sw6lojp1dr" path="res://Scripts/NPC/CloudEnemy.gd" id="1_5saei"]
-[ext_resource type="Script" uid="uid://duqt8y8w8lgex" path="res://Scenes/Entities/flicker.gd" id="2_k0afk"]
+[ext_resource type="Script" uid="uid://duqt8y8w8lgex" path="res://Scripts/Tools/flicker.gd" id="2_k0afk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gnutd"]
 
