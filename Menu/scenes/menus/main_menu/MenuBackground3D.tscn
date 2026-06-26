@@ -128,6 +128,9 @@ bones/39/rotation = Quaternion(0.26226476, 0.004711128, -0.0017989995, 0.9649828
 [node name="BoneAttachment3D" parent="playerModel/Main/Skeleton3D" index="1" unique_id=852140500]
 transform = Transform3D(0.9982172, 0.027231857, -0.0531132, 0.050848335, 0.07802552, 0.9956536, 0.031257648, -0.99657923, 0.076501995, -0.5247956, 8.8034315, -53.729008)
 
+[node name="wire" parent="playerModel/Main/Skeleton3D/BoneAttachment3D/bulb inside2" parent_id_path=PackedInt32Array(918976960, 1984625147) index="0" unique_id=431264708]
+surface_material_override/0 = null
+
 [node name="OmniLight3D" parent="playerModel/Main/Skeleton3D/BoneAttachment3D/bulb inside2" parent_id_path=PackedInt32Array(918976960, 1984625147) index="1" unique_id=934692962]
 light_energy = 0.1
 shadow_enabled = false
@@ -161,26 +164,26 @@ omni_range = 2.176
 [node name="Menu room" type="CSGCombiner3D" parent="." unique_id=119562369]
 
 [node name="ceiling" type="CSGBox3D" parent="Menu room" unique_id=177526140]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6109097, 1.9105914)
-size = Vector3(5.5429688, 0.025878906, 5.404297)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6109097, 0.8320391)
+size = Vector3(5.5429688, 0.025878906, 3.2471924)
 
 [node name="floor" type="CSGBox3D" parent="Menu room" unique_id=920976296]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.17498553, 1.9105914)
-size = Vector3(5.5429688, 0.025878906, 5.404297)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.17498553, 0.91400933)
+size = Vector3(5.5429688, 0.025878906, 3.4111328)
 
 [node name="Walls" type="CSGCombiner3D" parent="Menu room" unique_id=1371557485]
 
 [node name="Wall" type="CSGBox3D" parent="Menu room/Walls" unique_id=1072569147]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2086036, -0.75016713)
-size = Vector3(5.992, 6, 0.086)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12812686, 1.1477516, -0.75016713)
+size = Vector3(5.7357464, 2.793335, 0.086)
 
 [node name="Wall2" type="CSGBox3D" parent="Menu room/Walls" unique_id=392342270]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2086036, 2.2929487)
-size = Vector3(5.992, 6, 0.086)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2376411, 2.2929487)
+size = Vector3(5.992, 2.8367004, 0.086)
 
 [node name="Wall3" type="CSGBox3D" parent="Menu room/Walls" unique_id=459576787]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.6157534, 1.2086036, 1.8824673)
-size = Vector3(5.992, 6, 0.086)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.6157534, 0.39701915, 0.7016059)
+size = Vector3(3.6302774, 4.376831, 0.086)
 
 [node name="Door" type="CSGBox3D" parent="Menu room" unique_id=1590516759]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 2.5972712, 0.79613763, 0.8852627)

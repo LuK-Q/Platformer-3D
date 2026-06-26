@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dn7xlhrp7txof"]
+
+[node name="Roof light" type="CSGCombiner3D" unique_id=1060470555]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=2141388503]
+transform = Transform3D(0.70710677, -0.7071067, 0, 0.24184477, 0.24184476, -0.9396926, 0.664463, 0.6644629, 0.34202015, 0, 0, 0)
+radius = 0.036132813
+height = 0.8305664
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCylinder3D" unique_id=1019126727]
+transform = Transform3D(0.45666647, -0.057508275, -0.03591314, 0, 0.9756265, -0.030822033, 0.12401362, 0.21176788, 0.13224617, -0.20216331, -0.10493353, -0.10290328)
+polygon = PackedVector2Array(0.2817707, 0.46633244, 0.17799568, 0.9668646, 0.75086594, 0.96103764, 0.62371445, 0.45950222)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCylinder3D/CSGPolygon3D" unique_id=2031706143]
+transform = Transform3D(1, 0, -1.0174699e-07, 0, 1, -4.5110937e-08, 9.313226e-10, -3.7252903e-09, 1, 0.45458317, 0.72525215, -0.07034302)
+operation = 2
+size = Vector3(0.21484375, 0.368042, 1)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=255038759]
+transform = Transform3D(0.9197005, 0.24627544, 0.3057763, -0.22697201, -0.30198538, 0.92589873, 0.3203661, -0.9209524, -0.22183852, -0.5, 0, 0.5)
+light_color = Color(0.76862746, 0.81960785, 0.81960785, 1)
+shadow_enabled = true
+spot_range = 10.426328
+spot_angle = 80.1164

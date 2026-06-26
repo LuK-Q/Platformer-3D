@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://6epy24tmhwfq" path="res://Menu/scenes/windows/pause_menu.tscn" id="6_6bp64"]
 [ext_resource type="PackedScene" uid="uid://ctqhoom08o8at" path="res://Scenes/Prototype/Level_Prototype.tscn" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://cyh0d64pfygbl" path="res://addons/maaacks_menus_template/base/nodes/utilities/pause_menu_controller.gd" id="6_344ge"]
-[ext_resource type="Script" uid="uid://dj8moaxh7qg8f" path="res://Scripts/Map/checkpoint.gd" id="7_d1ilt"]
+[ext_resource type="PackedScene" uid="uid://dn7xlhrp7txof" path="res://Scenes/Prototype/roof_light.tscn" id="7_6iyac"]
+[ext_resource type="Script" uid="uid://dj8moaxh7qg8f" path="res://Scripts/Map/CheckPoint.gd" id="7_d1ilt"]
 [ext_resource type="Script" uid="uid://cbe8voogbs0m3" path="res://Scripts/Map/DeathZone.gd" id="8_344ge"]
 [ext_resource type="PackedScene" uid="uid://b371xr0c60ph6" path="res://Scenes/Entities/CloudEnemy.tscn" id="9_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://c26oeuvv5itca" path="res://Scenes/Tools/scene_transition.tscn" id="10_hptm8"]
@@ -203,19 +204,19 @@ volumetric_fog_ambient_inject = 0.5
 size = Vector3(3.7501678, 1.4495697, 1.329834)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6iyac"]
-size = Vector3(1, 2.694336, 2.359375)
+size = Vector3(2.5146484, 2.694336, 7.7197266)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jkdf5"]
 size = Vector3(2.3747559, 1, 5.296631)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wsu2k"]
-size = Vector3(6.3828125, 0.1796875, 6.109375)
+size = Vector3(5.15625, 0.1796875, 5.0278015)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k12tt"]
-size = Vector3(11.765625, 1, 2.9960938)
+size = Vector3(11.765625, 1.5517578, 2.2093506)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h1bgf"]
-size = Vector3(4.600586, 0.22241211, 4.937744)
+size = Vector3(1.9658203, 0.22241211, 8.016235)
 
 [node name="Main" type="Node" unique_id=687295441]
 
@@ -246,43 +247,43 @@ mesh = SubResource("QuadMesh_344ge")
 [node name="Player" parent="Character" unique_id=379518051 groups=["Player"] instance=ExtResource("1_bo1nx")]
 unique_name_in_owner = true
 
-[node name="Skeleton3D" parent="Character/Player/Pivot/playerModel/Main" parent_id_path=PackedInt32Array(379518051, 548309962, 102134533) index="0" unique_id=840237900]
-bones/0/position = Vector3(0.46819404, -1.7176867, -73.03398)
-bones/0/rotation = Quaternion(-0.6827889, -0.27151188, 0.25100034, 0.6301424)
-bones/1/rotation = Quaternion(0.044779956, 0.0394325, -0.0073932013, 0.998191)
-bones/2/rotation = Quaternion(0.092488095, 0.07956259, -0.01681129, 0.99238765)
-bones/3/rotation = Quaternion(0.09248804, 0.07956266, -0.01681129, 0.99238765)
-bones/4/rotation = Quaternion(-0.012129598, -0.00953278, 0.0010252312, 0.9998805)
-bones/5/rotation = Quaternion(-0.0416673, 0.1767223, -0.0038398707, 0.9833709)
-bones/7/rotation = Quaternion(-0.5987691, -0.38713318, 0.6012647, -0.36067182)
-bones/8/rotation = Quaternion(0.39462444, -0.094956905, 0.058304787, 0.912061)
-bones/9/rotation = Quaternion(-0.028519182, 0.07919423, 0.4194221, 0.9038806)
-bones/10/rotation = Quaternion(-0.17231719, 0.1384874, 0.055771295, 0.97366196)
-bones/11/rotation = Quaternion(0.06932534, 0.053113043, 0.27146295, 0.95847845)
-bones/12/rotation = Quaternion(-0.018210815, 0.0009188049, -0.0021708305, 0.9998314)
-bones/15/rotation = Quaternion(0.04650562, -0.005037152, 0.019216131, 0.9987205)
-bones/16/rotation = Quaternion(0.2682801, -0.0018447042, 0.0016110854, 0.9633379)
-bones/19/rotation = Quaternion(0.64671856, -0.35232717, 0.55988336, 0.37967283)
-bones/20/rotation = Quaternion(0.3615108, 0.11576349, 0.17048194, 0.9093101)
-bones/21/rotation = Quaternion(0.03550416, 0.0006353456, -0.3722955, 0.9274348)
-bones/22/rotation = Quaternion(0.11253697, -0.014614465, -0.12188316, 0.98603576)
-bones/23/rotation = Quaternion(-0.0032054926, 0.0899709, -0.292891, 0.951898)
-bones/24/rotation = Quaternion(0.020261917, -0.0039866157, 0.18718702, 0.9821073)
-bones/27/rotation = Quaternion(-0.009141332, 0.009899577, 0.10487939, 0.9943937)
-bones/28/rotation = Quaternion(0.17964646, 0.00069633, 0.01772223, 0.9835714)
-bones/31/rotation = Quaternion(0.08066267, 0.19688457, 0.97195107, -0.100205176)
-bones/32/rotation = Quaternion(-0.3128903, 0.11293123, -0.031274527, 0.94253284)
-bones/33/rotation = Quaternion(0.55085576, -0.03566778, -0.050173763, 0.83232707)
-bones/34/rotation = Quaternion(0.30766633, 0.0069767763, -0.023424406, 0.95118046)
-bones/36/rotation = Quaternion(-0.1265417, 0.0032687327, 0.983981, 0.12553091)
-bones/37/rotation = Quaternion(-0.28981945, 0.067105554, -0.019222314, 0.9545324)
-bones/38/rotation = Quaternion(0.63195455, 0.076940276, 0.12421666, 0.761107)
-bones/39/rotation = Quaternion(0.31097475, 0.009586426, -0.0029005308, 0.9503654)
+[node name="Skeleton3D" parent="Character/Player/Pivot/playerModel/Main" parent_id_path=PackedInt32Array(379518051, 548309962, 1011523384) index="0" unique_id=463638418]
+bones/0/position = Vector3(0.18469436, -1.9488997, -73.04811)
+bones/0/rotation = Quaternion(-0.68595177, -0.26548013, 0.24665299, 0.63099355)
+bones/1/rotation = Quaternion(0.045406953, 0.039156523, -0.0076636192, 0.9981715)
+bones/2/rotation = Quaternion(0.09256546, 0.07919969, -0.017116789, 0.99240416)
+bones/3/rotation = Quaternion(0.092568494, 0.079218276, -0.017119143, 0.9924024)
+bones/4/rotation = Quaternion(-0.01652292, -0.010104154, 0.001380487, 0.9998115)
+bones/5/rotation = Quaternion(-0.070532925, 0.17641242, -0.0011020125, 0.98178536)
+bones/7/rotation = Quaternion(-0.6002408, -0.38534495, 0.6007695, -0.3609659)
+bones/8/rotation = Quaternion(0.39957213, -0.09804885, 0.06057629, 0.90942794)
+bones/9/rotation = Quaternion(-0.029011192, 0.07781155, 0.42115727, 0.9031779)
+bones/10/rotation = Quaternion(-0.17272167, 0.13824815, 0.06045768, 0.97334456)
+bones/11/rotation = Quaternion(0.0682172, 0.053291608, 0.27250665, 0.95825183)
+bones/12/rotation = Quaternion(-0.018337559, 0.000815095, -0.002016376, 0.99982953)
+bones/15/rotation = Quaternion(0.028539635, -0.0054908553, 0.017016903, 0.9994328)
+bones/16/rotation = Quaternion(0.23674396, -0.00079182815, -0.0027612688, 0.9715678)
+bones/19/rotation = Quaternion(0.6516308, -0.34589842, 0.56101453, 0.3754921)
+bones/20/rotation = Quaternion(0.36391297, 0.111944444, 0.17699358, 0.90758425)
+bones/21/rotation = Quaternion(0.036211204, -0.0028136089, -0.36820945, 0.9290332)
+bones/22/rotation = Quaternion(0.12455931, -0.017028388, -0.12122139, 0.9846322)
+bones/23/rotation = Quaternion(-0.0025211931, 0.08797645, -0.2998666, 0.94991255)
+bones/24/rotation = Quaternion(0.019157229, -0.003391895, 0.1805372, 0.9833757)
+bones/27/rotation = Quaternion(-0.011143334, 0.009741312, 0.103471756, 0.99452233)
+bones/28/rotation = Quaternion(0.17713085, 0.0005360752, 0.017859856, 0.9840252)
+bones/31/rotation = Quaternion(0.08213601, 0.1897212, 0.9732276, -0.10043691)
+bones/32/rotation = Quaternion(-0.30806762, 0.120154925, -0.032741252, 0.9431782)
+bones/33/rotation = Quaternion(0.5461705, -0.035833094, -0.050632298, 0.83537436)
+bones/34/rotation = Quaternion(0.31092802, 0.0053652516, -0.022803536, 0.95014477)
+bones/36/rotation = Quaternion(-0.1245878, 0.004469228, 0.9844598, 0.12368034)
+bones/37/rotation = Quaternion(-0.2885919, 0.075218454, -0.02150425, 0.95425075)
+bones/38/rotation = Quaternion(0.63650095, 0.07770248, 0.12491258, 0.75711673)
+bones/39/rotation = Quaternion(0.3068382, 0.008683254, -0.0033007613, 0.9517164)
 
 [node name="BoneAttachment3D" parent="Character/Player/Pivot/playerModel/Main/Skeleton3D" index="1" unique_id=566357642]
-transform = Transform3D(0.9962088, -0.0863207, -0.010803193, 0.033455968, 0.26552096, 0.96352446, -0.080303594, -0.96023285, 0.2674023, -2.2499995, 7.8117285, -121.423256)
+transform = Transform3D(0.99717087, -0.07505864, -0.0040467978, 0.019115895, 0.20115605, 0.97937274, -0.072696365, -0.9766792, 0.20202178, -2.3909812, 7.44597, -121.480896)
 
-[node name="wire" parent="Character/Player/Pivot/playerModel/Main/Skeleton3D/BoneAttachment3D/bulb inside" parent_id_path=PackedInt32Array(379518051, 548309962, 1984625147) index="0" unique_id=1516509957]
+[node name="wire" parent="Character/Player/Pivot/playerModel/Main/Skeleton3D/BoneAttachment3D/bulb inside" parent_id_path=PackedInt32Array(379518051, 548309962, 1984625147) index="0" unique_id=431264708]
 layers = 2
 
 [node name="OmniLight3D2" parent="Character/Player/Pivot/playerModel/Main/Skeleton3D/BoneAttachment3D/bulb inside" parent_id_path=PackedInt32Array(379518051, 548309962, 1984625147) index="2" unique_id=1832748617]
@@ -355,6 +356,35 @@ shape = SubResource("BoxShape3D_d1ilt")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="World" unique_id=785623424]
 environment = SubResource("Environment_kry3j")
 
+[node name="Lamp Container" type="Node3D" parent="World" unique_id=168711561]
+
+[node name="Roof light" parent="World/Lamp Container" unique_id=1060470555 instance=ExtResource("7_6iyac")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -34.473698, 3.6375942, 2.0661337)
+
+[node name="Roof light4" parent="World/Lamp Container" unique_id=741626907 instance=ExtResource("7_6iyac")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.398994, 3.6375942, 2.066135)
+
+[node name="Roof light5" parent="World/Lamp Container" unique_id=15952755 instance=ExtResource("7_6iyac")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -60.398994, -0.98527837, -17.094978)
+
+[node name="Roof light6" parent="World/Lamp Container" unique_id=45080808 instance=ExtResource("7_6iyac")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -76.667915, 2.0567074, -65.97833)
+
+[node name="Roof light7" parent="World/Lamp Container" unique_id=742713502 instance=ExtResource("7_6iyac")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -55.07923, 2.0567074, -65.97833)
+
+[node name="Roof light8" parent="World/Lamp Container" unique_id=828251770 instance=ExtResource("7_6iyac")]
+transform = Transform3D(1.1924881e-08, 0, -1, 0, 1, 0, 1, 0, 1.1924881e-08, -45.086506, 9.3626, -47.996117)
+
+[node name="Roof light9" parent="World/Lamp Container" unique_id=860107078 instance=ExtResource("7_6iyac")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -36.59461, 5.7482414, -40.69088)
+
+[node name="Roof light2" parent="World/Lamp Container" unique_id=1930875783 instance=ExtResource("7_6iyac")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0013636, 4.3039436, 4.9764533)
+
+[node name="Roof light3" parent="World/Lamp Container" unique_id=1663733279 instance=ExtResource("7_6iyac")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.0013636, 4.3039436, -4.8346553)
+
 [node name="Menu" type="Node" parent="." unique_id=463252045]
 
 [node name="SceneTransition" parent="Menu" unique_id=177604947 instance=ExtResource("10_hptm8")]
@@ -379,7 +409,7 @@ required_actions = Array[String](["camera_rotate_right", "camera_rotate_left"])
 shape = SubResource("BoxShape3D_fdnlq")
 
 [node name="Tutorial_movement" type="Area3D" parent="Menu" unique_id=1635901097]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.486738, 0, 1.1304412)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.971146, 0, 5.7783723)
 collision_layer = 0
 script = ExtResource("11_6iyac")
 text_to_show = "SHIFT -> sprint
@@ -410,6 +440,7 @@ text_to_show = "Sprint jumping into a wall allows you to run along it."
 required_actions = Array[String](["jump", "sprint"])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_wallrun" unique_id=508263907]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.61328125, 0, -1.4441681)
 shape = SubResource("BoxShape3D_wsu2k")
 
 [node name="Tutorial_Ledges" type="Area3D" parent="Menu" unique_id=1617606694]
@@ -423,6 +454,7 @@ Pressing [Backwards] + [Jump] -> jumps off of the ledge
 Pressing [Crouch] -> lets go of the ledge"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_Ledges" unique_id=1721323090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2758789, -0.78253174)
 shape = SubResource("BoxShape3D_k12tt")
 
 [node name="Tutorial_Vaulting" type="Area3D" parent="Menu" unique_id=1306179223]
@@ -434,6 +466,7 @@ text_to_show = "Pressing [Jump] in front of a small obstacle allows you to vault
 "
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Menu/Tutorial_Vaulting" unique_id=1851972503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3173828, 0, 1.5392456)
 shape = SubResource("BoxShape3D_h1bgf")
 
 [node name="Entities" type="Node" parent="." unique_id=932881986]
